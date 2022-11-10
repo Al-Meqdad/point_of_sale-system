@@ -1,0 +1,25 @@
+{
+    "products": [
+      { "id": 1, "name": "Tomato", "category": "vegetables" , "price" : 1},
+      { "id": 2, "name": "Corn", "category": "vegetables" , "price" : 1},
+      { "id": 3, "name": "CueCumber", "category": "vegetables" , "price" : 1},
+      { "id": 4, "name": "Potato", "category": "vegetables" , "price" : 1},
+      { "id": 5, "name": "Water melon", "category": "fruits" , "price" : 1},
+      { "id": 6, "name": "Banana", "category": "fruits" , "price" : 1},
+      { "id": 7, "name": "Straw berry", "category": "fruits" , "price" : 1},
+      { "id": 8, "name": "Mango", "category": "fruits" , "price" : 1},
+      { "id": 9, "name": "Tomato soup", "category": "cans" , "price" : 1},
+      { "id": 10, "name": "Tuna", "category": "cans" , "price" : 1},
+      { "id": 11, "name": "Milk", "category": "cartons", "price" : 1 },
+      { "id": 12, "name": "Apple juice", "category": "cartons" , "price" : 1},
+      { "id": 13, "name": "Doretos", "category": "chips", "price" : 1 },
+      { "id": 14, "name": "Lays", "category": "chips", "price" : 1 }
+    ],
+    "categories":[
+        {"category":"vegetables"},
+        {"category":"fruits"},
+        {"category":"cans"},
+        {"category":"cartons"},
+        {"category":"chips"}
+    ]
+  }
