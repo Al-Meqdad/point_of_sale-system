@@ -1,11 +1,12 @@
-
 import { useEffect, useState } from "react";
-import Product from "../Products/Products.jsx";
-const Categories = () =>{
+import "./c.css"
+
+const Categories = ({handleChange}) =>{
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         requestCategories();
+        
       }, []); //eslint-disable-line react-hooks/exhaustive-deps
     
       async function requestCategories() {
@@ -16,21 +17,30 @@ const Categories = () =>{
         setCategories(json);
       }
 
-      const send = (category) => {
-        <Product category={category} />
-        console.log(category)
+      const array=[]
+      for (let values of Object.values(categories)){
+        array.push(values.category)
       }
+     
+
 
     
 return(
     <div>
     <h1>Featured Categories</h1>
     <div className='item-container'>
-      {categories.map((category) => (
-        <div className='card'key={category.category}>
-            <button onClick={() => send(category.category)}>{category.category} </button>
-        </div>
+      <div className='card'>
+    <input type="radio" id="category1"  name="category" onChange={event => handleChange(array)} />
+    <label htmlFor="category1">All</label>
+  
+      {categories.map((c) => (
+        <>
+            <input type="radio"  id={c.category} name="category" onChange={event => handleChange(c.category)} />
+            <label htmlFor={c.category}>{c.category}</label>
+
+        </>
       ))}
+  </div>
     </div>
   </div>
 )

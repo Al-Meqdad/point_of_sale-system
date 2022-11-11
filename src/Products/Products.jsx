@@ -1,9 +1,9 @@
 import "./Pstyling.css"
 import { useEffect, useState } from "react";
 
-const Product = ({category=["vegetables", "fruits","cans","cartons","chips"]}) =>{
+const Product = ({category}) =>{
     const [products, setProducts] = useState([]);
-    console.log(category)
+
     
     useEffect(() => {
         requestPets();
