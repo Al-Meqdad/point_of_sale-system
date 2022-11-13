@@ -1,40 +1,35 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
-import "./Edit.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const Edit = () => {
+const Add = () =>{
   const { state } = useLocation();
 
-  const product = state[0][state[1]];
+  const navigate = useNavigate();
   const [productName, setProductName] = useState([]);
   const [productCategory, setProductCategory] = useState([]);
   const [productPrice, setProductPrice] = useState([]);
-  const navigate = useNavigate();
 
-  const updateList = (id, name, category, price) => {
-    fetch("http://localhost:5050/products/" + id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, category, price }),
-    });
-  };
 
-  return (
-    <div className="edit-container">
-      <form
+    const postList = (array) => {
+        fetch(`http://localhost:5050/${state[0]}/` , {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          
+          body: JSON.stringify(array),
+        });
+      };
+
+      if(state[0]==="products")
+    return(
+        <div>
+           <form
         className="edit-form"
         onSubmit={(e) => {
           e.preventDefault();
-
-          updateList(
-            state[0][state[1]].id,
-            productName,
-            productCategory,
-            productPrice
-          );
+          postList({name:productName,category:productCategory,price:productPrice})
           navigate("/");
         }}
       >
@@ -43,8 +38,9 @@ const Edit = () => {
 
           <input
             id="name"
-            placeholder={product.name}
+            placeholder="Product Name"
             onChange={(e) => setProductName(e.target.value)}
+            
           />
         </label>
 
@@ -53,8 +49,10 @@ const Edit = () => {
 
           <input
             id="category"
-            placeholder={product.category}
+            placeholder="Product Category"
             onChange={(e) => setProductCategory(e.target.value)}
+
+
           />
         </label>
 
@@ -63,15 +61,16 @@ const Edit = () => {
 
           <input
             id="price"
-            placeholder={product.price}
+            placeholder="Product Price"
             onChange={(e) => setProductPrice(e.target.value)}
+
           />
         </label>
 
         <button>Submit</button>
       </form>
-    </div>
-  );
-};
+        </div>
+    )
+}
 
-export default Edit;
+export default Add

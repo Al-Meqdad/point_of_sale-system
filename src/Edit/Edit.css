@@ -1,10 +1,9 @@
-
-.edit-container{
-    display:flex;
-    justify-content: center;
-    align-items: center;
+.edit-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.edit-form{
-    display:flex;
-    flex-direction: column;
+.edit-form {
+  display: flex;
+  flex-direction: column;
 }
