@@ -32,13 +32,13 @@ return(
       <div className='card'>
     <input type="radio" id="category1"  name="category" onChange={event => handleChange(array)} />
     <label htmlFor="category1">All</label>
-  
+
       {categories.map((c) => (
-        <>
+       <div key={c.category}>
             <input type="radio"  id={c.category} name="category" onChange={event => handleChange(c.category)} />
             <label htmlFor={c.category}>{c.category}</label>
 
-        </>
+        </div>
       ))}
   </div>
     </div>
