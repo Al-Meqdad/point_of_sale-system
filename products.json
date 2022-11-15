@@ -1,15 +1,15 @@
 {
   "products": [
     {
-      "name": "fango",
+      "name": "Water Melon",
       "category": "fruits",
-      "price": "150",
+      "price": "200",
       "id": 8
     },
     {
-      "name": "Tomato soup",
+      "name": "Beens",
       "category": "cans",
-      "price": 1,
+      "price": "150",
       "id": 9
     },
     {
@@ -43,20 +43,20 @@
       "id": 14
     },
     {
-      "name": "fruity tooty",
+      "name": "Mango",
       "category": "fruits",
-      "price": "50",
+      "price": "150",
       "id": 15
     }
   ],
   "categories": [
     {
-      "id": 1,
-      "category": "vegetables"
+      "category": "Vegetables",
+      "id": 1
     },
     {
-      "id": 2,
-      "category": "fruits"
+      "category": "Fruits",
+      "id": 2
     },
     {
       "id": 3,
@@ -69,6 +69,10 @@
     {
       "id": 5,
       "category": "chips"
+    },
+    {
+      "category": "Snacks",
+      "id": 6
     }
   ]
 }
