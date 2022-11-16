@@ -10,7 +10,7 @@ const Cart = ({ cartProducts, onAdd, onRemove, id, Cartkey }) => {
   const priceAfterDiscount = totalPrice - (discountPerc / 100) * totalPrice;
 
   return (
-    <div key={id} id={id}>
+    <div key={id} id={id} className="cart_container">
       <div>
         {cartProducts[Cartkey].length === 0 && <div> Cart is empty </div>}
       </div>
@@ -25,32 +25,36 @@ const Cart = ({ cartProducts, onAdd, onRemove, id, Cartkey }) => {
               >
                 +
               </button>
+              {item.qty} 
               <button onClick={(event) => onRemove(item)} className="remove">
                 -
               </button>
             </div>
             <div className="price">
               {" "}
-              {item.qty} x ${item.price}{" "}
+              ${item.price}{" "}
             </div>
           </div>
         ))}
       </div>
       {cartProducts[Cartkey].length !== 0 && (
         <div className="summary">
-          <div className="col-6">
+          <div className="Total">
+          <div >
             <div>Total Price : ${totalPrice}</div>
             <div>Price after Discount : ${priceAfterDiscount}</div>
           </div>
-          <div className="col-6">
+          <div >
             <label htmlFor="discount">
               <div>Discount Percentage %</div>
               <input
+              type="number"
                 id="discount"
                 placeholder="Discount Percentage"
                 onChange={(e) => setDiscount(e.target.value)}
               />
             </label>
+          </div>
           </div>
           <div className="Checkout">
             <button onClick={(event) => alert("Success")}>Checkout</button>

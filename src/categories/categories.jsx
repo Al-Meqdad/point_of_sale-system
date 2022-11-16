@@ -67,9 +67,9 @@ const Categories = ({ handleChange }) => {
       <div className="search_style">
           <div>
             <label>Search Categories</label>
-            <input type="text" onChange={(e) => setQuery(e.target.value)} />
+            <input className="ca_radius" type="text" onChange={(e) => setQuery(e.target.value)} />
           </div>
-          <button onClick={(event) => add()} className="edit_button">
+          <button onClick={(event) => add()} className="ca_radius">
             Add a Category
           </button>
         </div>

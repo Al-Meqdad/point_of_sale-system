@@ -5,22 +5,23 @@
 
 .summary {
   border-top: 2px solid grey;
+  display:flex;
+  flex-direction: column;
 }
-
+.Total{
+  display:flex;
+  justify-content: space-between;
+}
 .List {
   display: flex;
   flex-direction: column;
 }
 
-.price {
-  margin-left: auto;
-  order: 2;
-}
 
 .Items {
   margin: 15px 0 15px 0;
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
 }
 .add_remove {
   display: flex;
@@ -46,4 +47,9 @@
 }
 .tab {
   display: flex;
+}
+
+.cart_container{
+padding:20px 150px;
+background-color:cornsilk;
 }

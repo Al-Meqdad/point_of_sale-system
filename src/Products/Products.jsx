@@ -14,7 +14,7 @@ const Product = ({ defaultCategory, onAdd }) => {
   const [query, setQuery] = useState("");
   const [id, setId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage=3
+  const itemsPerPage=6
   const navigate = useNavigate();
 
   const lastPageIndex = currentPage * itemsPerPage;

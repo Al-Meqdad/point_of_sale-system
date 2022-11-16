@@ -13,7 +13,8 @@
 .item_container label {
   margin: 0;
   padding: 0.75rem 2rem;
-  background-color: #fff;
+  background-color: darkcyan;
+  color:white;
   font-size: 1rem;
   line-height: 140%;
   font-weight: 600;
@@ -32,6 +33,9 @@
   border-color: #4b9dea;
   z-index: 1;
 }
+.item_container label:hover{
+  background-color:lightblue
+}
 
 .item_container {
   width: 100%;
@@ -42,6 +46,9 @@
   border: 2px solid lightgrey;
   gap: 10px;
   flex-direction: column;
+  border-radius: 50px;
+  padding:50px 150px;
+  background-color:cornsilk;
 }
 
 .search_style {
@@ -72,4 +79,9 @@
 
 .delete_btn:hover {
   background-color: red;
+}
+
+
+.ca_radius{
+  border-radius: 10px;
 }

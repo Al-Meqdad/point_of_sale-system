@@ -14,6 +14,7 @@ h1 {
   border-radius: 5px;
   padding: 1em;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  flex: 0 0 30.333333%;
 }
 
 .products_component .search_style {
@@ -51,4 +52,15 @@ h1 {
   align-self: center;
   width:150px;
   height:150px
+}
+
+.card button{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.card button:hover{
+  background-color:aquamarine
 }

@@ -48,7 +48,7 @@ const Index = () => {
 
   const onRemove = (item) => {
     const exist = cartProducts[cartKey].find((x) => x.id === item.id);
-    const tempCart = cartProducts.slice();
+    const tempCart = JSON.parse(JSON.stringify(cartProducts));
     if (exist.qty === 1) {
       tempCart[cartKey] = cartProducts[cartKey].filter((x) => x.id !== item.id);
       setCartProducts(tempCart);
@@ -80,7 +80,7 @@ const Index = () => {
                 <div className="right_side">
                   <h1>Available Carts</h1>
 
-                  <div>
+                  <div className="carts">
                     <div className="tab">
                       <button
                         className={
