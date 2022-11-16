@@ -46,3 +46,9 @@ h1 {
 .page_btn:hover {
   background-color: blue;
 }
+
+.product_container img{
+  align-self: center;
+  width:150px;
+  height:150px
+}

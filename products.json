@@ -4,69 +4,98 @@
       "name": "Water Melon",
       "category": "fruits",
       "price": "200",
-      "id": 8
+      "image":"../images/Water_Melon.png",
+      "id": 1
     },
     {
       "name": "Tuna",
       "category": "cans",
       "price": 1,
-      "id": 10
+      "image":"../images/Tuna.png",
+      "id": 2
     },
     {
       "name": "Milk",
       "category": "cartons",
       "price": 1,
-      "id": 11
+      "image":"../images/Milk.png",
+      "id": 3
     },
     {
       "name": "Apple juice",
       "category": "cartons",
       "price": 1,
-      "id": 12
+      "image":"../images/Apple_Juice.png",
+
+      "id": 4
     },
     {
       "name": "Doretos",
       "category": "chips",
       "price": 1,
-      "id": 13
+      "image":"../images/Doretos.png",
+      "id": 5
     },
     {
       "name": "Lays",
       "category": "chips",
       "price": 1,
-      "id": 14
+      "image":"../images/Lays.png",
+      "id": 6
     },
     {
       "name": "Mango",
       "category": "fruits",
       "price": "150",
-      "id": 15
+      "image":"../images/Mango.png",
+      "id": 7
+    },
+    {
+      "name": "Mango",
+      "category": "fruits",
+      "price": "150",
+      "image":"../images/Mango.png",
+      "id": 78
+    },
+    {
+      "name": "Mango",
+      "category": "fruits",
+      "price": "150",
+      "image":"../images/Mango.png",
+      "id": 9
+    },
+    {
+      "name": "Mango",
+      "category": "fruits",
+      "price": "150",
+      "image":"../images/Mango.png",
+      "id": 10
     }
   ],
   "categories": [
     {
       "category": "fruits",
-      "id": 2
+      "id": 1
     },
     {
-      "id": 3,
+      "id": 2,
       "category": "cans"
     },
     {
-      "id": 4,
+      "id": 3,
       "category": "cartons"
     },
     {
-      "id": 5,
+      "id":4,
       "category": "chips"
     },
     {
       "category": "snacks",
-      "id": 6
+      "id": 5
     },
     {
       "category": "vegetables",
-      "id": 7
+      "id": 6
     }
   ]
 }

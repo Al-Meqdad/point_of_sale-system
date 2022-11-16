@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { StrictMode } from "react";
 import Products from "./Products/Products.jsx";
-import Nav from "./Navbar/nav.jsx";
 import Categories from "./categories/categories.jsx";
 import { useState } from "react";
 import Cart from "./Cart/cart.jsx";
@@ -69,7 +68,6 @@ const Index = () => {
   return (
     <StrictMode>
       <BrowserRouter>
-        <Nav></Nav>
         <Routes>
           <Route
             path="/"

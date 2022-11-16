@@ -6,7 +6,7 @@ import Edit from "../Edit/Edit";
 import { BsFillTrashFill, BsFillGearFill } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Delete from "../Delete/Delete"
-
+import Pagination from "../Pagination/Category_Pagination"
 const Categories = ({ handleChange }) => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
@@ -15,18 +15,15 @@ const Categories = ({ handleChange }) => {
   const [toggleDelete, setModal] = useState(false);
   const [query, setQuery] = useState("");
   const [id, setId] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage=2
+
+  const lastPageIndex = currentPage * itemsPerPage;
+  const firstPageIndex = lastPageIndex - itemsPerPage;
+  const curentDisplay = categories.filter((c) => !query ? c :  c.category.toLowerCase().includes(query.toLowerCase()) ).slice(firstPageIndex, lastPageIndex)
 
 
-  const getFilteredCategories = (query, categories) => {
-    if (!query) {
-      return categories;
-    } else {
-      return categories.filter((c) =>
-        c.category.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-  };
-  const filteredCategories = getFilteredCategories(query, categories);
+  const filteredCategories =  curentDisplay
 
   useEffect(() => {
     requestCategories();
@@ -67,6 +64,15 @@ const Categories = ({ handleChange }) => {
     <div>
       <h1>Featured Categories</h1>
       <div className="category_component">
+      <div className="search_style">
+          <div>
+            <label>Search Categories</label>
+            <input type="text" onChange={(e) => setQuery(e.target.value)} />
+          </div>
+          <button onClick={(event) => add()} className="edit_button">
+            Add a Category
+          </button>
+        </div>
         <div className="item_container">
           <div className="category_container">
             <div className="label_holder">
@@ -74,6 +80,7 @@ const Categories = ({ handleChange }) => {
                 type="radio"
                 id="category1"
                 name="category"
+                defaultChecked 
                 onChange={(event) => handleChange(array)}
               />
               <label htmlFor="category1">All</label>
@@ -105,18 +112,17 @@ const Categories = ({ handleChange }) => {
                 </div>
               </div>
             ))}
+          <Pagination
+        totalPosts={categories}
+        itemsPerPage={itemsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        query={query}
+      />
           </div>
         </div>
 
-        <div className="search_style">
-          <div>
-            <label>Search Categories</label>
-            <input type="text" onChange={(e) => setQuery(e.target.value)} />
-          </div>
-          <button onClick={(event) => add()} className="edit_button">
-            Add a Category
-          </button>
-        </div>
+       
         <Modal
           backdropClassName="newBackdrop"
           show={toggleEdit}

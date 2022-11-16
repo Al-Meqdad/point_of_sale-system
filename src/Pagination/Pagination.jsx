@@ -1,16 +1,33 @@
+
+import { useEffect } from "react";
+
 const Pagination = ({
   totalPosts,
   itemsPerPage,
   setCurrentPage,
   currentPage,
+  defaultCategory,
+  query
 }) => {
+
+  let length_after_filter = totalPosts.filter((p) => defaultCategory.includes(p.category)).length
+
+  if(query.length>=1){
+    length_after_filter= totalPosts.filter((p)=> p.name.toLowerCase().includes(query.toLowerCase())).length
+  }
   const pages = [];
 
-  for (let i = 1; i <= Math.ceil(totalPosts / itemsPerPage); i++) {
-    pages.push(i);
+  for (let i = 1; i <= Math.ceil(length_after_filter/ itemsPerPage); i++) {
+    pages.push(i)
   }
 
-  console.log(totalPosts);
+  useEffect(() => {
+    if (length_after_filter < totalPosts.length) {
+      setCurrentPage(1)
+    }
+  }, [totalPosts,length_after_filter,setCurrentPage,query]);
+
+
   return (
     <div className="Pagination_container">
       {pages.map((page, index) => (

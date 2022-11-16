@@ -41,11 +41,11 @@
   display: flex;
   border: 2px solid lightgrey;
   gap: 10px;
+  flex-direction: column;
 }
 
 .search_style {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 .label_holder {

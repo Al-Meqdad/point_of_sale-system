@@ -14,35 +14,21 @@ const Product = ({ defaultCategory, onAdd }) => {
   const [query, setQuery] = useState("");
   const [id, setId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
-  const lastPageIndex = currentPage * itemsPerPage;
-  const firstPageIndex = lastPageIndex - itemsPerPage;
-  const cuurentDisplay = products.slice(firstPageIndex, lastPageIndex);
-
+  const itemsPerPage=3
   const navigate = useNavigate();
 
-  const getFilteredProducts = (query, products) => {
-    if (!query) {
-      return products;
-    } else {
-      return products.filter((product) =>
-        product.name.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-  };
-
-  const closeModal = () => {
-    setModal(false);
-    setEditModal(false);
-  };
+  const lastPageIndex = currentPage * itemsPerPage;
+  const firstPageIndex = lastPageIndex - itemsPerPage;
+  const curentDisplay = products.filter((p) => defaultCategory.includes(p.category)).filter((product) => !query ? product :  product.name.toLowerCase().includes(query.toLowerCase()) ).slice(firstPageIndex, lastPageIndex)
+  
 
   useEffect(() => {
-    async function requestPets() {
+    async function requestProducts() {
       const res = await fetch(`http://localhost:5050/products`);
       const json = await res.json();
       setProducts(json);
     }
-    requestPets();
+    requestProducts();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   const modalInfo = (productId) => {
@@ -54,12 +40,19 @@ const Product = ({ defaultCategory, onAdd }) => {
     setCurrentProduct(project);
     setEditModal(true);
   };
+  const closeModal = () => {
+    setModal(false);
+    setEditModal(false);
+  };
 
   const add = () => {
     navigate("/Add", { state: ["products"] });
   };
 
-  const filteredProducts = getFilteredProducts(query, cuurentDisplay);
+  
+  
+
+  const filteredProducts = curentDisplay
 
   return (
     <div className="products_component">
@@ -73,13 +66,14 @@ const Product = ({ defaultCategory, onAdd }) => {
         <button onClick={(event) => add()}>Add a Product</button>
       </div>
       <div className="product_container">
-        {filteredProducts
-          .filter((p) => defaultCategory.includes(p.category))
-          .map((product, index) => (
+        {filteredProducts.filter((p) => defaultCategory.includes(p.category)).filter((product) => !query ? product :  product.name.toLowerCase().includes(query.toLowerCase()) )
+          .map((product) => (
             <div className="card" key={product.id}>
+              <img src={product.image} alt="Milk"/>
               <h3>{product.name}</h3>
               <p>{product.category}</p>
               <p>${product.price}</p>
+
               <button onClick={(event) => onAdd({ product: product })}>
                 {" "}
                 Add to cart
@@ -92,10 +86,13 @@ const Product = ({ defaultCategory, onAdd }) => {
           ))}
       </div>
       <Pagination
-        totalPosts={products.length}
+        totalPosts={products}
         itemsPerPage={itemsPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
+        defaultCategory={defaultCategory}
+        query={query}
+
       />
       <Modal show={toggleDelete} onHide={closeModal}>
         <Modal.Header closeButton>
