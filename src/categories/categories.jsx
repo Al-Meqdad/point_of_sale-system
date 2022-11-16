@@ -3,13 +3,19 @@ import "./c.css";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Edit from "../Edit/Edit";
+import { BsFillTrashFill, BsFillGearFill } from "react-icons/bs";
+import Button from "react-bootstrap/Button";
+import Delete from "../Delete/Delete"
 
 const Categories = ({ handleChange }) => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [currentProduct, setCurrentProduct] = useState();
   const [toggleEdit, setEditModal] = useState(false);
+  const [toggleDelete, setModal] = useState(false);
   const [query, setQuery] = useState("");
+  const [id, setId] = useState();
+
 
   const getFilteredCategories = (query, categories) => {
     if (!query) {
@@ -48,53 +54,98 @@ const Categories = ({ handleChange }) => {
 
   const closeModal = () => {
     setEditModal(false);
+    setModal(false)
   };
+
+  const modalInfo = (productId) => {
+    setModal(true);
+    setId(productId);
+  };
+
 
   return (
     <div>
       <h1>Featured Categories</h1>
-      <label>Search Categories</label>
-      <input type="text" onChange={(e) => setQuery(e.target.value)} />
-      <div className="item-container">
-        <div className="card">
-          <input
-            type="radio"
-            id="category1"
-            name="category"
-            onChange={(event) => handleChange(array)}
-          />
-          <label htmlFor="category1">All</label>
-
-          {filteredCategories.map((c) => (
-            <div key={c.category}>
+      <div className="category_component">
+        <div className="item_container">
+          <div className="category_container">
+            <div className="label_holder">
               <input
                 type="radio"
-                id={c.category}
+                id="category1"
                 name="category"
-                onChange={(event) => handleChange(c.category)}
+                onChange={(event) => handleChange(array)}
               />
-
-              <label htmlFor={c.category}>
-                {c.category}{" "}
-                <button onClick={(event) => expandModal(c)}>Edit data</button>
-              </label>
+              <label htmlFor="category1">All</label>
             </div>
-          ))}
+
+            {filteredCategories.map((c) => (
+              <div className="label_holder" key={c.category}>
+                <input
+                  type="radio"
+                  id={c.category}
+                  name="category"
+                  onChange={(event) => handleChange(c.category)}
+                />
+
+                <label htmlFor={c.category}>{c.category}</label>
+                <div className="inside_buttons">
+                  <button
+                    onClick={(event) => expandModal(c)}
+                    className="edit_btn"
+                  >
+                    <BsFillGearFill />{" "}
+                  </button>
+                  <button
+                    onClick={(event) => modalInfo(c.id)}
+                    className="delete_btn"
+                  >
+                    <BsFillTrashFill />{" "}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      <button onClick={(event) => add()}>Add a Category</button>
-      <Modal
-        backdropClassName="newBackdrop"
-        show={toggleEdit}
-        onHide={closeModal}
-      >
+
+        <div className="search_style">
+          <div>
+            <label>Search Categories</label>
+            <input type="text" onChange={(e) => setQuery(e.target.value)} />
+          </div>
+          <button onClick={(event) => add()} className="edit_button">
+            Add a Category
+          </button>
+        </div>
+        <Modal
+          backdropClassName="newBackdrop"
+          show={toggleEdit}
+          onHide={closeModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Edit product</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Edit current={currentProduct} Gener="categories" />
+          </Modal.Body>
+          <Modal.Footer>
+          <Button onClick={closeModal}>close</Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show={toggleDelete} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit product</Modal.Title>
+          <Modal.Title>Are you sure you want to delete this?</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
-          <Edit current={currentProduct} Gener="categories" />
+          <Delete Gener="categories" id={id} />
         </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={closeModal}>close</Button>
+        </Modal.Footer>
       </Modal>
+      </div>
     </div>
   );
 };

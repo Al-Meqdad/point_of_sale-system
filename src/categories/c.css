@@ -4,19 +4,15 @@
 .info:focus {
   background-color: green;
 }
-.item-container input {
+.item_container input {
   cursor: pointer;
   width: 0;
   height: 0;
 }
 
-.item-container label {
+.item_container label {
   margin: 0;
   padding: 0.75rem 2rem;
-  box-sizing: border-box;
-  position: relative;
-  display: inline-block;
-  border: solid 1px #ddd;
   background-color: #fff;
   font-size: 1rem;
   line-height: 140%;
@@ -26,11 +22,54 @@
   transition: border-color 0.15s ease-out, color 0.25s ease-out,
     background-color 0.15s ease-out, box-shadow 0.15s ease-out;
   cursor: pointer;
+  width: 100%;
 }
-.item-container input:checked + label {
+
+.item_container input:checked + label {
   background-color: #4b9dea;
   color: #fff;
   box-shadow: 0 0 10px rgba(102, 179, 251, 0.5);
   border-color: #4b9dea;
   z-index: 1;
+}
+
+.item_container {
+  width: 100%;
+}
+
+.category_component {
+  display: flex;
+  border: 2px solid lightgrey;
+  gap: 10px;
+}
+
+.search_style {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.label_holder {
+  display: flex;
+  border: solid 1px #ddd;
+}
+.inside_buttons {
+  display: flex;
+  flex-direction: column;
+}
+.delete_btn,
+.edit_btn {
+  border-radius: 20%;
+}
+.delete_btn {
+  background-color: #ffcccb;
+}
+.edit_btn {
+  background-color: lightgreen;
+}
+.edit_btn:hover {
+  background-color: green;
+}
+
+.delete_btn:hover {
+  background-color: red;
 }

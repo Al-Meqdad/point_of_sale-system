@@ -7,12 +7,6 @@
       "id": 8
     },
     {
-      "name": "Beens",
-      "category": "cans",
-      "price": "150",
-      "id": 9
-    },
-    {
       "name": "Tuna",
       "category": "cans",
       "price": 1,
@@ -51,11 +45,7 @@
   ],
   "categories": [
     {
-      "category": "Vegetables",
-      "id": 1
-    },
-    {
-      "category": "Fruits",
+      "category": "fruits",
       "id": 2
     },
     {
@@ -71,8 +61,12 @@
       "category": "chips"
     },
     {
-      "category": "Snacks",
+      "category": "snacks",
       "id": 6
+    },
+    {
+      "category": "vegetables",
+      "id": 7
     }
   ]
 }

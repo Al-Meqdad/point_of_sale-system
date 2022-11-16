@@ -1,61 +1,59 @@
 import { useState } from "react";
+import "./Cart.css";
+const Cart = ({ cartProducts, onAdd, onRemove, id, Cartkey }) => {
+  const totalPrice = cartProducts[Cartkey].reduce(
+    (a, c) => a + c.price * c.qty,
+    0
+  );
 
-const Cart = ({ cartProducts, onAdd, onRemove, id }) => {
-  const totalPrice = cartProducts.reduce((a, c) => a + c.price * c.qty, 0);
   const [discountPerc, setDiscount] = useState(0);
-  const [priceafterDiscount, setpriceafterDiscount] = useState(totalPrice);
-
-  const discount = (percentage) => {
-    setpriceafterDiscount(totalPrice);
-    setpriceafterDiscount(totalPrice - (percentage / 100) * totalPrice);
-  };
+  const priceAfterDiscount = totalPrice - (discountPerc / 100) * totalPrice;
 
   return (
     <div key={id} id={id}>
-      <h3>Shopping cart</h3>
-      <div>{cartProducts.length === 0 && <div> Cart is empty </div>}</div>
-      {cartProducts.map((item) => (
-        <div key={item.id} className="row">
-          <div className="col-2">{item.name}</div>
-          <div className="col-2">
-            <button onClick={(event) => onAdd(item)} className="add">
-              +
-            </button>
-            <button onClick={(event) => onRemove(item)} className="remove">
-              -
-            </button>
+      <div>
+        {cartProducts[Cartkey].length === 0 && <div> Cart is empty </div>}
+      </div>
+      <div className="List">
+        {cartProducts[Cartkey].map((item) => (
+          <div key={item.id} className="Items">
+            {item.name}
+            <div className="add_remove">
+              <button
+                onClick={(event) => onAdd({ product: item })}
+                className="add"
+              >
+                +
+              </button>
+              <button onClick={(event) => onRemove(item)} className="remove">
+                -
+              </button>
+            </div>
+            <div className="price">
+              {" "}
+              {item.qty} x ${item.price}{" "}
+            </div>
           </div>
-          <div className="col-2 text-right">
-            {item.qty} x ${item.price}
-          </div>
-        </div>
-      ))}
-      {cartProducts.length !== 0 && (
-        <div className="row">
-          <hr></hr>
+        ))}
+      </div>
+      {cartProducts[Cartkey].length !== 0 && (
+        <div className="summary">
           <div className="col-6">
             <div>Total Price : ${totalPrice}</div>
-            <div>Price after Discount : ${priceafterDiscount}</div>
+            <div>Price after Discount : ${priceAfterDiscount}</div>
           </div>
           <div className="col-6">
-            <form
-              className="edit-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                discount(discountPerc);
-              }}
-            >
-              <label htmlFor="name">
-                <div>Discount Percentage %</div>
-
-                <input
-                  id="name"
-                  placeholder="Discount Percentage"
-                  onChange={(e) => setDiscount(e.target.value)}
-                />
-              </label>
-              <button>Discount</button>
-            </form>
+            <label htmlFor="discount">
+              <div>Discount Percentage %</div>
+              <input
+                id="discount"
+                placeholder="Discount Percentage"
+                onChange={(e) => setDiscount(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="Checkout">
+            <button onClick={(event) => alert("Success")}>Checkout</button>
           </div>
         </div>
       )}

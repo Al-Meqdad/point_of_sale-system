@@ -4,14 +4,21 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Edit from "../Edit/Edit";
-
+import Delete from "../Delete/Delete";
+import Pagination from "../Pagination/Pagination";
 const Product = ({ defaultCategory, onAdd }) => {
   const [products, setProducts] = useState([]);
   const [currentProduct, setCurrentProduct] = useState();
-  const [toggleModal, setModal] = useState(false);
+  const [toggleDelete, setModal] = useState(false);
   const [toggleEdit, setEditModal] = useState(false);
   const [query, setQuery] = useState("");
   const [id, setId] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const lastPageIndex = currentPage * itemsPerPage;
+  const firstPageIndex = lastPageIndex - itemsPerPage;
+  const cuurentDisplay = products.slice(firstPageIndex, lastPageIndex);
+
   const navigate = useNavigate();
 
   const getFilteredProducts = (query, products) => {
@@ -38,14 +45,9 @@ const Product = ({ defaultCategory, onAdd }) => {
     requestPets();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
-  const modalInfo = (caller, productId) => {
-    if (caller === 1) {
-      setModal(true);
-      setId(productId);
-    } else if (caller === 2) {
-      closeModal();
-      del(id);
-    }
+  const modalInfo = (productId) => {
+    setModal(true);
+    setId(productId);
   };
 
   const expandModal = (project) => {
@@ -57,23 +59,20 @@ const Product = ({ defaultCategory, onAdd }) => {
     navigate("/Add", { state: ["products"] });
   };
 
-  const del = (id) => {
-    fetch("http://localhost:5050/products/" + id, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(setProducts(products.filter((oldid) => oldid.id !== id)));
-  };
-
-  const filteredProducts = getFilteredProducts(query, products);
+  const filteredProducts = getFilteredProducts(query, cuurentDisplay);
 
   return (
-    <div>
+    <div className="products_component">
       <h1>Featured Products</h1>
-      <label>Search Products</label>
-      <input type="text" onChange={(e) => setQuery(e.target.value)} />
-      <div className="item-container">
+      <div className="search_style">
+        <div>
+          {" "}
+          <label>Search Products</label>
+          <input type="text" onChange={(e) => setQuery(e.target.value)} />
+        </div>
+        <button onClick={(event) => add()}>Add a Product</button>
+      </div>
+      <div className="product_container">
         {filteredProducts
           .filter((p) => defaultCategory.includes(p.category))
           .map((product, index) => (
@@ -81,41 +80,51 @@ const Product = ({ defaultCategory, onAdd }) => {
               <h3>{product.name}</h3>
               <p>{product.category}</p>
               <p>${product.price}</p>
-              <button onClick={(event) => onAdd(product)}> Add to cart</button>
-              <button onClick={(event) => modalInfo(1, product.id)}>
-                Delete
+              <button onClick={(event) => onAdd({ product: product })}>
+                {" "}
+                Add to cart
               </button>
+              <button onClick={(event) => modalInfo(product.id)}>Delete</button>
               <button onClick={(event) => expandModal(product)}>
                 Edit data
               </button>
             </div>
           ))}
-        <Modal show={toggleModal} onHide={closeModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Confirmation</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>Are you sure you want to delete this?</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={(event) => modalInfo(2)}>Delete</Button>
-            <Button onClick={closeModal}>close</Button>
-          </Modal.Footer>
-        </Modal>
-        <button onClick={(event) => add()}>Add a Product</button>
-
-        <Modal
-          backdropClassName="newBackdrop"
-          show={toggleEdit}
-          onHide={closeModal}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Edit product</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Edit current={currentProduct} Gener="products" />
-          </Modal.Body>
-        </Modal>
       </div>
+      <Pagination
+        totalPosts={products.length}
+        itemsPerPage={itemsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
+      <Modal show={toggleDelete} onHide={closeModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure you want to delete this?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Delete Gener="products" id={id} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={closeModal}>close</Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        backdropClassName="newBackdrop"
+        show={toggleEdit}
+        onHide={closeModal}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Edit product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Edit current={currentProduct} Gener="products" />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={closeModal}>close</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

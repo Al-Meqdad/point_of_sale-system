@@ -1,0 +1,49 @@
+.Checkout {
+  display: flex;
+  justify-content: center;
+}
+
+.summary {
+  border-top: 2px solid grey;
+}
+
+.List {
+  display: flex;
+  flex-direction: column;
+}
+
+.price {
+  margin-left: auto;
+  order: 2;
+}
+
+.Items {
+  margin: 15px 0 15px 0;
+  display: flex;
+  gap: 20px;
+}
+.add_remove {
+  display: flex;
+  gap: 5px;
+}
+.add,
+.remove {
+  padding: 0 15px 0 15px;
+  border-radius: 500px;
+  font-size: 1.1em;
+}
+.add {
+  background-color: rgb(118, 231, 118);
+}
+.remove {
+  background-color: #e79795;
+}
+.add:hover {
+  background-color: green;
+}
+.remove:hover {
+  background-color: red;
+}
+.tab {
+  display: flex;
+}
