@@ -17,7 +17,7 @@ const Cart = ({ cartProducts, onAdd, onRemove, id, Cartkey }) => {
       <div className="List">
         {cartProducts[Cartkey].map((item) => (
           <div key={item.id} className="Items">
-            {item.name}
+            <h3>{item.name}</h3>
             <div className="add_remove">
               <button
                 onClick={(event) => onAdd({ product: item })}
@@ -25,39 +25,36 @@ const Cart = ({ cartProducts, onAdd, onRemove, id, Cartkey }) => {
               >
                 +
               </button>
-              {item.qty} 
+              {item.qty}
               <button onClick={(event) => onRemove(item)} className="remove">
                 -
               </button>
             </div>
-            <div className="price">
-              {" "}
-              ${item.price}{" "}
-            </div>
+            <div className="price"> ${item.price} </div>
           </div>
         ))}
       </div>
       {cartProducts[Cartkey].length !== 0 && (
         <div className="summary">
           <div className="Total">
-          <div >
-            <div>Total Price : ${totalPrice}</div>
-            <div>Price after Discount : ${priceAfterDiscount}</div>
-          </div>
-          <div >
-            <label htmlFor="discount">
-              <div>Discount Percentage %</div>
-              <input
-              type="number"
-                id="discount"
-                placeholder="Discount Percentage"
-                onChange={(e) => setDiscount(e.target.value)}
-              />
-            </label>
-          </div>
+            <div>
+              <div>Total Price : ${totalPrice}</div>
+              <div>Price after Discount : ${priceAfterDiscount}</div>
+            </div>
+            <div>
+              <label htmlFor="discount">
+                <div>Discount Percentage %</div>
+                <input
+                  type="number"
+                  id="discount"
+                  placeholder="Discount Percentage"
+                  onChange={(e) => setDiscount(e.target.value)}
+                />
+              </label>
+            </div>
           </div>
           <div className="Checkout">
-            <button onClick={(event) => alert("Success")}>Checkout</button>
+            <button onClick={(event) => alert("Success")} className="checkout">Checkout</button>
           </div>
         </div>
       )}

@@ -18,7 +18,7 @@ h1 {
 }
 
 .products_component .search_style {
-  flex-direction: row;
+  justify-content: space-around;
 }
 
 .product_container {
@@ -48,19 +48,25 @@ h1 {
   background-color: blue;
 }
 
-.product_container img{
+.product_container img {
   align-self: center;
-  width:150px;
-  height:150px
+  width: 150px;
+  height: 150px;
 }
 
-.card button{
-  display:flex;
+.card button {
+  display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 15px;
 }
 
-.card button:hover{
-  background-color:aquamarine
+.card button:hover {
+  background-color: aquamarine;
+}
+
+
+.search_style_child{
+  flex: 0 0 15.333333%;
+
 }

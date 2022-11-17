@@ -14,7 +14,7 @@
   margin: 0;
   padding: 0.75rem 2rem;
   background-color: darkcyan;
-  color:white;
+  color: white;
   font-size: 1rem;
   line-height: 140%;
   font-weight: 600;
@@ -33,8 +33,8 @@
   border-color: #4b9dea;
   z-index: 1;
 }
-.item_container label:hover{
-  background-color:lightblue
+.item_container label:hover {
+  background-color: lightblue;
 }
 
 .item_container {
@@ -43,12 +43,10 @@
 
 .category_component {
   display: flex;
-  border: 2px solid lightgrey;
   gap: 10px;
   flex-direction: column;
   border-radius: 50px;
-  padding:50px 150px;
-  background-color:cornsilk;
+  padding: 50px 150px;
 }
 
 .search_style {
@@ -81,7 +79,6 @@
   background-color: red;
 }
 
-
-.ca_radius{
+.ca_radius {
   border-radius: 10px;
 }

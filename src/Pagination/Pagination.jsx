@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 
 const Pagination = ({
@@ -7,26 +6,28 @@ const Pagination = ({
   setCurrentPage,
   currentPage,
   defaultCategory,
-  query
+  query,
 }) => {
+  let length_after_filter = totalPosts.filter((p) =>
+    defaultCategory.includes(p.category)
+  ).length;
 
-  let length_after_filter = totalPosts.filter((p) => defaultCategory.includes(p.category)).length
-
-  if(query.length>=1){
-    length_after_filter= totalPosts.filter((p)=> p.name.toLowerCase().includes(query.toLowerCase())).length
+  if (query.length >= 1) {
+    length_after_filter = totalPosts.filter((p) =>
+      p.name.toLowerCase().includes(query.toLowerCase())
+    ).length;
   }
   const pages = [];
 
-  for (let i = 1; i <= Math.ceil(length_after_filter/ itemsPerPage); i++) {
-    pages.push(i)
+  for (let i = 1; i <= Math.ceil(length_after_filter / itemsPerPage); i++) {
+    pages.push(i);
   }
 
   useEffect(() => {
     if (length_after_filter < totalPosts.length) {
-      setCurrentPage(1)
+      setCurrentPage(1);
     }
-  }, [totalPosts,length_after_filter,setCurrentPage,query]);
-
+  }, [totalPosts, length_after_filter, setCurrentPage, query]);
 
   return (
     <div className="Pagination_container">

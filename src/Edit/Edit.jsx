@@ -1,10 +1,7 @@
-import { useState } from "react";
 import "./Edit.css";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const Edit = ({ current, Gener }) => {
-  const [productName, setProductName] = useState([]);
-  const [productCategory, setProductCategory] = useState([]);
-  const [productPrice, setProductPrice] = useState([]);
 
   const updateList = (array) => {
     fetch(`http://localhost:5050/${Gener}/` + current.id, {
@@ -14,75 +11,111 @@ const Edit = ({ current, Gener }) => {
       },
       body: JSON.stringify(array),
     });
+    window.location.reload(false);
   };
   if (Gener === "products") {
     return (
       <div className="edit-container">
-        <form
-          className="edit-form"
-          onSubmit={(e) => {
-            updateList({
-              name: productName,
-              category: productCategory,
-              price: productPrice,
-            });
-          }}
-        >
+                   <Formik
+       initialValues={{name:'', category: '' ,price: 0, image: '../images/'}}
+       validate={values => {
+         const errors = {};
+         if (!values.category && !values.name && !values.price) {
+           errors.category = 'Required';
+           errors.name="Required"
+           errors.price="Required"
+           
+           
+         }
+         return errors;
+       }}
+       onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          updateList(values, null, 4)
+          setSubmitting(false);
+        }, 400);
+      }}
+     >
+       {({ isSubmitting }) => (
+         <Form className='add-form'>
           <label htmlFor="name">
-            <div>Product Name</div>
+            <div className='error_mess'>
+              <div>Product Name</div>
+            <ErrorMessage style={{ color: 'red'}} name="name" component="div" />
+            </div>
+            
+           <Field  type="text" name="name" />
+            </label>
 
-            <input
-              id="name"
-              placeholder={current.name}
-              onChange={(e) => setProductName(e.target.value)}
-            />
-          </label>
+            <label htmlFor="category">
+            <div className='error_mess'>
+              <div>Product Category</div>
+            <ErrorMessage style={{ color: 'red'}} name="category" component="div" />
+            </div>
 
-          <label htmlFor="category">
-            <div>Product Category</div>
+           <Field type="text" name="category" />
 
-            <input
-              id="category"
-              placeholder={current.category}
-              onChange={(e) => setProductCategory(e.target.value)}
-            />
           </label>
 
           <label htmlFor="price">
-            <div>Product price</div>
+            <div className='error_mess'>
+              <div>Product price</div>
+            <ErrorMessage  style={{ color: 'red'}} name="price" component="div" />
 
-            <input
-              id="price"
-              placeholder={current.price}
-              onChange={(e) => setProductPrice(e.target.value)}
-            />
+            </div>
+
+           <Field type="number" name="price" />
           </label>
 
-          <button>Submit</button>
-        </form>
+          <label htmlFor='image'>
+              <div>image URL</div>
+           <Field type="text" name="image" />
+           </label>
+           <button type="submit" disabled={isSubmitting}>
+             Submit
+           </button>
+         </Form>
+       )}
+     </Formik>
+
       </div>
     );
   } else {
     return (
       <div className="edit-container">
-        <form
-          className="edit-form"
-          onSubmit={(e) => {
-            updateList({ category: productCategory });
-          }}
-        >
-          <label htmlFor="category">
-            <div>Product Category</div>
+       <Formik
+       initialValues={{ category: '' }}
+       validate={values => {
+         const errors = {};
+         if (!values.category) {
+           errors.category = 'Required';
+         } 
+         return errors;
+       }}
+       onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          updateList(values, null, 1)
+          setSubmitting(false);
+        }, 400);
+      }}
+     >
+       {({ isSubmitting }) => (
+         <Form className='add-form'>
+                      <label htmlFor="category">
+            <div className='error_mess'>
+              <div>Category name</div>
+            <ErrorMessage  style={{ color: 'red'}} name="category" component="div" />
+            </div>
 
-            <input
-              id="category"
-              placeholder={current.category}
-              onChange={(e) => setProductCategory(e.target.value)}
-            />
-          </label>
+           <Field type="text" name="category" />
 
-          <button>Submit</button>
-        </form>
+           </label>
+           <button type="submit" disabled={isSubmitting}>
+             Submit
+           </button>
+         </Form>
+       )}
+     </Formik>
       </div>
     );
   }

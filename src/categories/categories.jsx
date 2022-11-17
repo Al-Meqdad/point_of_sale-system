@@ -1,29 +1,35 @@
 import { useEffect, useState } from "react";
 import "./c.css";
-import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Edit from "../Edit/Edit";
 import { BsFillTrashFill, BsFillGearFill } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
-import Delete from "../Delete/Delete"
-import Pagination from "../Pagination/Category_Pagination"
+import Delete from "../Delete/Delete";
+import Pagination from "../Pagination/Category_Pagination";
+import Add from "../Add/add"
+
+
 const Categories = ({ handleChange }) => {
   const [categories, setCategories] = useState([]);
-  const navigate = useNavigate();
   const [currentProduct, setCurrentProduct] = useState();
   const [toggleEdit, setEditModal] = useState(false);
   const [toggleDelete, setModal] = useState(false);
+  const [toggleAdd, settoggleAdd] = useState(false);
+
   const [query, setQuery] = useState("");
   const [id, setId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage=2
+  const itemsPerPage = 2;
 
   const lastPageIndex = currentPage * itemsPerPage;
   const firstPageIndex = lastPageIndex - itemsPerPage;
-  const curentDisplay = categories.filter((c) => !query ? c :  c.category.toLowerCase().includes(query.toLowerCase()) ).slice(firstPageIndex, lastPageIndex)
+  const curentDisplay = categories
+    .filter((c) =>
+      !query ? c : c.category.toLowerCase().includes(query.toLowerCase())
+    )
+    .slice(firstPageIndex, lastPageIndex);
 
-
-  const filteredCategories =  curentDisplay
+  const filteredCategories = curentDisplay;
 
   useEffect(() => {
     requestCategories();
@@ -40,9 +46,7 @@ const Categories = ({ handleChange }) => {
     array.push(values.category);
   }
 
-  const add = () => {
-    navigate("/Add", { state: ["categories"] });
-  };
+
 
   const expandModal = (project) => {
     setCurrentProduct(project);
@@ -51,7 +55,8 @@ const Categories = ({ handleChange }) => {
 
   const closeModal = () => {
     setEditModal(false);
-    setModal(false)
+    setModal(false);
+    settoggleAdd(false)
   };
 
   const modalInfo = (productId) => {
@@ -59,17 +64,20 @@ const Categories = ({ handleChange }) => {
     setId(productId);
   };
 
-
   return (
     <div>
       <h1>Featured Categories</h1>
       <div className="category_component">
-      <div className="search_style">
+        <div className="search_style">
           <div>
             <label>Search Categories</label>
-            <input className="ca_radius" type="text" onChange={(e) => setQuery(e.target.value)} />
+            <input
+              className="ca_radius"
+              type="text"
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
-          <button onClick={(event) => add()} className="ca_radius">
+          <button onClick={(event) => settoggleAdd(true)} className="ca_radius">
             Add a Category
           </button>
         </div>
@@ -80,7 +88,7 @@ const Categories = ({ handleChange }) => {
                 type="radio"
                 id="category1"
                 name="category"
-                defaultChecked 
+                defaultChecked
                 onChange={(event) => handleChange(array)}
               />
               <label htmlFor="category1">All</label>
@@ -112,17 +120,16 @@ const Categories = ({ handleChange }) => {
                 </div>
               </div>
             ))}
-          <Pagination
-        totalPosts={categories}
-        itemsPerPage={itemsPerPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        query={query}
-      />
+            <Pagination
+              totalPosts={categories}
+              itemsPerPage={itemsPerPage}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              query={query}
+            />
           </div>
         </div>
 
-       
         <Modal
           backdropClassName="newBackdrop"
           show={toggleEdit}
@@ -135,22 +142,35 @@ const Categories = ({ handleChange }) => {
             <Edit current={currentProduct} Gener="categories" />
           </Modal.Body>
           <Modal.Footer>
-          <Button onClick={closeModal}>close</Button>
+            <Button onClick={closeModal}>close</Button>
           </Modal.Footer>
         </Modal>
 
-        <Modal show={toggleDelete} onHide={closeModal}>
+    <Modal show={toggleAdd} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Are you sure you want to delete this?</Modal.Title>
+          <Modal.Title>Enter the product information here</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <Delete Gener="categories" id={id} />
+          <Add Gener="categories" />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>close</Button>
         </Modal.Footer>
       </Modal>
+
+        <Modal show={toggleDelete} onHide={closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure you want to delete this?</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <Delete Gener="categories" id={id} />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={closeModal}>close</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );

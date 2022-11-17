@@ -4,72 +4,92 @@
       "name": "Water Melon",
       "category": "fruits",
       "price": "200",
-      "image":"../images/Water_Melon.png",
+      "image": "../images/Water_Melon.png",
       "id": 1
     },
     {
       "name": "Tuna",
       "category": "cans",
       "price": 1,
-      "image":"../images/Tuna.png",
+      "image": "../images/Tuna.png",
       "id": 2
     },
     {
-      "name": "Milk",
+      "name": "Milk 101",
       "category": "cartons",
-      "price": 1,
-      "image":"../images/Milk.png",
+      "price": 5,
+      "image": "../images/Milk.png",
       "id": 3
     },
     {
       "name": "Apple juice",
       "category": "cartons",
       "price": 1,
-      "image":"../images/Apple_Juice.png",
-
+      "image": "../images/Apple_juice.png",
       "id": 4
     },
     {
       "name": "Doretos",
       "category": "chips",
       "price": 1,
-      "image":"../images/Doretos.png",
+      "image": "../images/Doretos.png",
       "id": 5
     },
     {
       "name": "Lays",
       "category": "chips",
       "price": 1,
-      "image":"../images/Lays.png",
+      "image": "../images/Lays.png",
       "id": 6
     },
     {
       "name": "Mango",
       "category": "fruits",
       "price": "150",
-      "image":"../images/Mango.png",
+      "image": "../images/Mango.png",
       "id": 7
     },
     {
-      "name": "Mango",
-      "category": "fruits",
-      "price": "150",
-      "image":"../images/Mango.png",
-      "id": 78
+      "name": "Beans",
+      "category": "cans",
+      "price": "10",
+      "image": "../images/Beans.png",
+      "id": 8
     },
     {
-      "name": "Mango",
-      "category": "fruits",
-      "price": "150",
-      "image":"../images/Mango.png",
+      "name": "Tomato",
+      "category": "vegetables",
+      "price": "5",
+      "image": "../images/Tomato.png",
       "id": 9
     },
     {
-      "name": "Mango",
-      "category": "fruits",
-      "price": "150",
-      "image":"../images/Mango.png",
+      "name": "Cucumber",
+      "category": "vegetables",
+      "price": "15",
+      "image": "../images/CuCumber.png",
       "id": 10
+    },
+    {
+      "name": "Snickers",
+      "category": "snacks",
+      "price": "2",
+      "image": "../images/Snickers.png",
+      "id": 11
+    },
+    {
+      "name": "M&Ms",
+      "category": "snacks",
+      "price": "3",
+      "image": "../images/M&Ms.png",
+      "id": 12
+    },
+    {
+      "name": "Frozen Pizza",
+      "category": "frozen",
+      "price": "50",
+      "image": "../images/Pizza.jpg",
+      "id": 13
     }
   ],
   "categories": [
@@ -86,7 +106,7 @@
       "category": "cartons"
     },
     {
-      "id":4,
+      "id": 4,
       "category": "chips"
     },
     {
@@ -96,6 +116,10 @@
     {
       "category": "vegetables",
       "id": 6
+    },
+    {
+      "category": "frozen",
+      "id": 7
     }
   ]
 }
