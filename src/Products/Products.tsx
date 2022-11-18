@@ -1,59 +1,68 @@
 import "./Pstyling.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FunctionComponent } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Edit from "../Edit/Edit";
 import Delete from "../Delete/Delete";
 import Pagination from "../Pagination/Pagination";
-import Add from "../Add/add"
+import Add from "../Add/add";
+import{ProductsApi} from "../ApiRespones"
 
 
-const Product = ({ defaultCategory, onAdd }) => {
-  const [products, setProducts] = useState([]);
-  const [currentProduct, setCurrentProduct] = useState();
+interface PageProps {
+  defaultCategory : string[] | string;
+onAdd: ({product}:{ product:ProductsApi}) => void;
+}
+
+const Product:FunctionComponent <PageProps>= (props) => {
+
+
+  const [products, setProducts] = useState([] as ProductsApi[]);
+  const [currentProduct, setCurrentProduct] = useState({} as ProductsApi );
   const [toggleDelete, setModal] = useState(false);
   const [toggleEdit, setEditModal] = useState(false);
   const [toggleAdd, settoggleAdd] = useState(false);
   const [query, setQuery] = useState("");
-  const [id, setId] = useState();
+  const [id , setId] = useState(0 as number);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const lastPageIndex = currentPage * itemsPerPage;
-  const firstPageIndex = lastPageIndex - itemsPerPage;
-  const curentDisplay = products
-    .filter((p) => defaultCategory.includes(p.category))
+  const lastPageIndex: number = currentPage * itemsPerPage;
+  const firstPageIndex: number  = lastPageIndex - itemsPerPage;
+  const curentDisplay: ProductsApi[] = products
+    .filter((p) => props.defaultCategory.includes(p.category))
     .filter((product) =>
       !query
         ? product
         : product.name.toLowerCase().includes(query.toLowerCase())
     )
+
+
     .slice(firstPageIndex, lastPageIndex);
 
   useEffect(() => {
     async function requestProducts() {
       const res = await fetch(`http://localhost:5050/products`);
-      const json = await res.json();
+      const json = (await res.json()) as ProductsApi[];
       setProducts(json);
     }
-    requestProducts();
+    void requestProducts();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
-  const modalInfo = (productId) => {
+  const modalInfo = (productId:number) => {
     setModal(true);
     setId(productId);
   };
 
-  const expandModal = (project) => {
+  const expandModal = (project: ProductsApi) => {
     setCurrentProduct(project);
     setEditModal(true);
   };
   const closeModal = () => {
     setModal(false);
     setEditModal(false);
-    settoggleAdd(false)
+    settoggleAdd(false);
   };
-
 
   const filteredProducts = curentDisplay;
 
@@ -63,15 +72,24 @@ const Product = ({ defaultCategory, onAdd }) => {
       <div className="search_style">
         <div className="search_style_child">
           {" "}
-          <label>Search Products</label>
-          <input type="text" onChange={(e) => setQuery(e.target.value)}  className="ca_radius"/>
+          <label htmlFor="Serach">Search Products</label>
+          <input
+            type="text"
+            onChange={(e) => setQuery(e.target.value)}
+            className="ca_radius"
+          />
         </div>
 
-        <button onClick={(event) => settoggleAdd(true)} className="ca_radius search_style_child">Add a Product</button>
+        <button
+          onClick={() => settoggleAdd(true)}
+          className="ca_radius search_style_child"
+        >
+          Add a Product
+        </button>
       </div>
       <div className="product_container">
         {filteredProducts
-          .filter((p) => defaultCategory.includes(p.category))
+          .filter((p) => props.defaultCategory.includes(p.category))
           .filter((product) =>
             !query
               ? product
@@ -84,12 +102,12 @@ const Product = ({ defaultCategory, onAdd }) => {
               <p>{product.category}</p>
               <p>${product.price}</p>
 
-              <button onClick={(event) => onAdd({ product: product })}>
+              <button onClick={() => props.onAdd({product})}>
                 {" "}
                 Add to cart
               </button>
-              <button onClick={(event) => modalInfo(product.id)}>Delete</button>
-              <button onClick={(event) => expandModal(product)}>
+              <button onClick={() => modalInfo(product.id)}>Delete</button>
+              <button onClick={() => expandModal(product)}>
                 Edit data
               </button>
             </div>
@@ -100,7 +118,7 @@ const Product = ({ defaultCategory, onAdd }) => {
         itemsPerPage={itemsPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
-        defaultCategory={defaultCategory}
+        defaultCategory={props.defaultCategory}
         query={query}
       />
       <Modal show={toggleDelete} onHide={closeModal}>

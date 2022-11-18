@@ -2,12 +2,15 @@ import { render } from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { StrictMode } from "react";
-import Products from "./Products/Products.jsx";
-import Categories from "./categories/categories.jsx";
+import Products from "./Products/Products";
+import Categories from "./categories/categories";
+import Cart from "./Cart/cart"
 import { useState } from "react";
-import Cart from "./Cart/cart.jsx";
-import Add from "./Add/add.jsx";
+/*import Cart from "./Cart/cart.jsx";*/
 import "./index.css";
+import{ProductsApi} from "./ApiRespones"
+
+
 
 const Index = () => {
   const [defaultCategory, setCategory] = useState([
@@ -16,51 +19,68 @@ const Index = () => {
     "cans",
     "cartons",
     "chips",
-  ]);
+  ] as string[] | string);
 
   const [currentTab, setCurrentTab] = useState(1);
 
   const [cartKey, SetCartKey] = useState("cart1");
 
-  const [cartProducts, setCartProducts] = useState({
-    cart1: [],
+  const [cartProducts, setCartProducts] = useState<{[cart: string]: ProductsApi[]}>({
+    cart1: [] ,
     cart2: [],
-    cart3: [],
-  });
+    cart3:[]
+  }) 
 
-  const handleChange = (category) => {
-    setCategory(category);
+  const[updateCart,setUpdateCart] =useState(0)
+
+  const handleChange = (category: string[] | string ) => {
+    setCategory(category );
   };
 
-  const onAdd = ({ product }) => {
-    const exist = cartProducts[cartKey].find((x) => x.id === product.id);
-    const tempCart = JSON.parse(JSON.stringify(cartProducts));
+  const onAdd= ( {product}:{
+    product:ProductsApi
+  }) => {
+    
+    const exist= (cartProducts[cartKey].find((x) => x.id === product.id)) as unknown as (ProductsApi | undefined);
+    const tempCart = cartProducts;   
+
     if (exist) {
       tempCart[cartKey] = cartProducts[cartKey].map((x) =>
-        x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
-      );
+      x.id === product.id ? { ...exist, qty: exist.qty+1 } : x
+    );
+      
       setCartProducts(tempCart);
-    } else {
-      tempCart[cartKey] = [...cartProducts[cartKey], { ...product, qty: 1 }];
+      setUpdateCart(Math.random())
+    } else  {
+      tempCart[cartKey] = [...cartProducts[cartKey], { ...product, qty: 1 }]; 
       setCartProducts(tempCart);
+      setUpdateCart(Math.random())
+
     }
   };
 
-  const onRemove = (item) => {
-    const exist = cartProducts[cartKey].find((x) => x.id === item.id);
-    const tempCart = JSON.parse(JSON.stringify(cartProducts));
-    if (exist.qty === 1) {
-      tempCart[cartKey] = cartProducts[cartKey].filter((x) => x.id !== item.id);
-      setCartProducts(tempCart);
-    } else {
-      tempCart[cartKey] = cartProducts[cartKey].map((x) =>
-        x.id === item.id ? { ...exist, qty: exist.qty - 1 } : x
-      );
-      setCartProducts(tempCart);
-    }
+  const onRemove = ({product}:{
+    product:ProductsApi
+  }) => {
+    const exist = cartProducts[cartKey].find((x) => x.id === product.id);
+    
+    const tempCart = cartProducts
+ 
+    if (exist) {
+      if(exist.qty){ 
+            tempCart[cartKey] = cartProducts[cartKey].filter((x) => x.id !== product.id);
+        setCartProducts(tempCart);
+      }else {
+        tempCart[cartKey] = cartProducts[cartKey].map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty-= 1 } : x
+        );
+        setCartProducts(tempCart);
+      }
+ 
+    } 
   };
 
-  function openTab(index, newKey) {
+  function openTab(index:number, newKey:string) {
     SetCartKey(newKey);
     setCurrentTab(index);
   }
@@ -86,7 +106,7 @@ const Index = () => {
                         className={
                           currentTab === 1 ? "tabs active-tabs" : "tabs"
                         }
-                        onClick={(event) => openTab(1, "cart1")}
+                        onClick={() => openTab(1, "cart1")}
                         id="defaultOpen"
                       >
                         Cart 1
@@ -95,7 +115,7 @@ const Index = () => {
                         className={
                           currentTab === 2 ? "tabs active-tabs" : "tabs"
                         }
-                        onClick={(event) => openTab(2, "cart2")}
+                        onClick={() => openTab(2, "cart2")}
                       >
                         Cart 2
                       </button>
@@ -103,7 +123,7 @@ const Index = () => {
                         className={
                           currentTab === 3 ? "tabs active-tabs" : "tabs"
                         }
-                        onClick={(event) => openTab(3, "cart3")}
+                        onClick={() => openTab(3, "cart3")}
                       >
                         Cart 3
                       </button>
@@ -120,8 +140,8 @@ const Index = () => {
                       <Cart
                         onAdd={onAdd}
                         onRemove={onRemove}
-                        cartProducts={cartProducts}
-                        id={1}
+                        cartProducts={cartProducts["cart1"]}
+                        updateCart={updateCart}
                         Cartkey="cart1"
                       />
                     </div>
@@ -137,8 +157,8 @@ const Index = () => {
                       <Cart
                         onAdd={onAdd}
                         onRemove={onRemove}
-                        cartProducts={cartProducts}
-                        id={2}
+                        cartProducts={cartProducts["cart2"]}
+                        updateCart={updateCart}
                         Cartkey="cart2"
                       />
                     </div>
@@ -154,17 +174,17 @@ const Index = () => {
                       <Cart
                         onAdd={onAdd}
                         onRemove={onRemove}
-                        cartProducts={cartProducts}
-                        id={3}
+                        cartProducts={cartProducts["cart3"]}
+                        updateCart={updateCart}
                         Cartkey="cart3"
                       />
                     </div>
                   </div>
                 </div>
+
               </div>
             }
           />
-          <Route path="/Add" element={<Add />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>

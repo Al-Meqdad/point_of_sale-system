@@ -1,32 +1,42 @@
-import { useState } from "react";
+import { useState,FunctionComponent } from "react";
 import "./Cart.css";
-const Cart = ({ cartProducts, onAdd, onRemove, id, Cartkey }) => {
-  const totalPrice = cartProducts[Cartkey].reduce(
+import{ProductsApi} from "../ApiRespones"
+
+interface PageProps {
+  cartProducts: ProductsApi[]
+  onAdd: ({product}:{ product:ProductsApi}) => void;
+  onRemove:({product}:{ product:ProductsApi}) => void;
+  Cartkey:string
+  updateCart:number
+
+}
+
+const Cart:FunctionComponent <PageProps> = ({ cartProducts, onAdd, onRemove, Cartkey }) => {
+  const totalPrice:number = cartProducts.reduce(
     (a, c) => a + c.price * c.qty,
     0
   );
-
-  const [discountPerc, setDiscount] = useState(0);
-  const priceAfterDiscount = totalPrice - (discountPerc / 100) * totalPrice;
+  const [discountPerc, setDiscount] = useState("0" as string);
+  const priceAfterDiscount = totalPrice - (parseInt(discountPerc) / 100) * totalPrice;
 
   return (
-    <div key={id} id={id} className="cart_container">
+    <div key={Cartkey}  className="cart_container">
       <div>
-        {cartProducts[Cartkey].length === 0 && <div> Cart is empty </div>}
+        {cartProducts.length === 0 && <div> Cart is empty </div>}
       </div>
       <div className="List">
-        {cartProducts[Cartkey].map((item) => (
+        {cartProducts.map((item) => (
           <div key={item.id} className="Items">
             <h3>{item.name}</h3>
             <div className="add_remove">
               <button
-                onClick={(event) => onAdd({ product: item })}
+                onClick={() => onAdd({ product: item }) }
                 className="add"
               >
                 +
               </button>
               {item.qty}
-              <button onClick={(event) => onRemove(item)} className="remove">
+              <button onClick={() => onRemove({product:item})} className="remove">
                 -
               </button>
             </div>
@@ -34,7 +44,7 @@ const Cart = ({ cartProducts, onAdd, onRemove, id, Cartkey }) => {
           </div>
         ))}
       </div>
-      {cartProducts[Cartkey].length !== 0 && (
+      {cartProducts.length !== 0 && (
         <div className="summary">
           <div className="Total">
             <div>
@@ -54,11 +64,14 @@ const Cart = ({ cartProducts, onAdd, onRemove, id, Cartkey }) => {
             </div>
           </div>
           <div className="Checkout">
-            <button onClick={(event) => alert("Success")} className="checkout">Checkout</button>
+            <button onClick={() => alert("Success")} className="checkout">
+              Checkout
+            </button>
           </div>
         </div>
       )}
     </div>
   );
 };
+
 export default Cart;

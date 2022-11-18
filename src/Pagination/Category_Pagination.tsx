@@ -1,6 +1,17 @@
-import { useEffect } from "react";
+import { useEffect,FunctionComponent } from "react";
+import{categories} from "../ApiRespones"
 
-const Pagination = ({
+interface PageProps {
+  totalPosts:categories[],
+  itemsPerPage:number,
+  setCurrentPage:React.Dispatch<React.SetStateAction<number>>,
+  currentPage:number,
+  query:string
+}
+
+
+
+const Pagination:FunctionComponent <PageProps> = ({
   totalPosts,
   itemsPerPage,
   setCurrentPage,
@@ -29,7 +40,7 @@ const Pagination = ({
       {pages.map((page, index) => (
         <button
           key={index}
-          onClick={(event) => setCurrentPage(page)}
+          onClick={() => setCurrentPage(page)}
           className={page === currentPage ? "page_btn active" : "page_btn"}
         >
           {page}

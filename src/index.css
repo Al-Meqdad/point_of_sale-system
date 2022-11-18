@@ -64,19 +64,22 @@ code {
   border-radius: 12px;
 }
 
-
-.edit-form, .add-form{
-  display:flex;
-  gap:15px;
+.edit-form,
+.add-form {
+  display: flex;
+  gap: 15px;
   align-items: center;
   flex-direction: column;
 }
 
-.edit-form button, .edit-form input , .add-form input, .add-form  button{
-  border-radius:10px;
-
+.edit-form button,
+.edit-form input,
+.add-form input,
+.add-form button {
+  border-radius: 10px;
 }
 
-.edit-form button:hover, .add-form  button:hover{
+.edit-form button:hover,
+.add-form button:hover {
   background-color: green;
 }
