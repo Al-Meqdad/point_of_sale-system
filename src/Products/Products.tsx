@@ -6,29 +6,26 @@ import Edit from "../Edit/Edit";
 import Delete from "../Delete/Delete";
 import Pagination from "../Pagination/Pagination";
 import Add from "../Add/add";
-import{ProductsApi} from "../ApiRespones"
-
+import { ProductsApi } from "../ApiRespones";
 
 interface PageProps {
-  defaultCategory : string[] | string;
-onAdd: ({product}:{ product:ProductsApi}) => void;
+  defaultCategory: string[] | string;
+  onAdd: ({ product }: { product: ProductsApi }) => void;
 }
 
-const Product:FunctionComponent <PageProps>= (props) => {
-
-
+const Product: FunctionComponent<PageProps> = (props) => {
   const [products, setProducts] = useState([] as ProductsApi[]);
-  const [currentProduct, setCurrentProduct] = useState({} as ProductsApi );
+  const [currentProduct, setCurrentProduct] = useState({} as ProductsApi);
   const [toggleDelete, setModal] = useState(false);
   const [toggleEdit, setEditModal] = useState(false);
   const [toggleAdd, settoggleAdd] = useState(false);
   const [query, setQuery] = useState("");
-  const [id , setId] = useState(0 as number);
+  const [id, setId] = useState(0 as number);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
   const lastPageIndex: number = currentPage * itemsPerPage;
-  const firstPageIndex: number  = lastPageIndex - itemsPerPage;
+  const firstPageIndex: number = lastPageIndex - itemsPerPage;
   const curentDisplay: ProductsApi[] = products
     .filter((p) => props.defaultCategory.includes(p.category))
     .filter((product) =>
@@ -36,7 +33,6 @@ const Product:FunctionComponent <PageProps>= (props) => {
         ? product
         : product.name.toLowerCase().includes(query.toLowerCase())
     )
-
 
     .slice(firstPageIndex, lastPageIndex);
 
@@ -49,7 +45,7 @@ const Product:FunctionComponent <PageProps>= (props) => {
     void requestProducts();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
-  const modalInfo = (productId:number) => {
+  const modalInfo = (productId: number) => {
     setModal(true);
     setId(productId);
   };
@@ -102,14 +98,12 @@ const Product:FunctionComponent <PageProps>= (props) => {
               <p>{product.category}</p>
               <p>${product.price}</p>
 
-              <button onClick={() => props.onAdd({product})}>
+              <button onClick={() => props.onAdd({ product })}>
                 {" "}
                 Add to cart
               </button>
               <button onClick={() => modalInfo(product.id)}>Delete</button>
-              <button onClick={() => expandModal(product)}>
-                Edit data
-              </button>
+              <button onClick={() => expandModal(product)}>Edit data</button>
             </div>
           ))}
       </div>

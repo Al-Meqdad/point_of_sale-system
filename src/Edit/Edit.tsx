@@ -1,25 +1,29 @@
 import "./Edit.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import {FunctionComponent} from "react"
-import{ProductsApi, ProductsRequest,categories,categoriesResponse} from "../ApiRespones"
+import { FunctionComponent } from "react";
+import {
+  ProductsApi,
+  ProductsRequest,
+  categories,
+  categoriesResponse,
+} from "../ApiRespones";
 
 interface PageProps {
-  current : ProductsApi|categories
-  Gener:string
+  current: ProductsApi | categories;
+  Gener: string;
 }
 
-const Edit:FunctionComponent <PageProps> = (props) => {
-
-  async function updateList (array: ProductsRequest | categoriesResponse ) {
+const Edit: FunctionComponent<PageProps> = (props) => {
+  async function updateList(array: ProductsRequest | categoriesResponse) {
     await fetch(`http://localhost:5050/${props.Gener}/${props.current.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(array),
-    })
-     window.location.reload()
-  };
+    });
+    window.location.reload();
+  }
   if (props.Gener === "products") {
     return (
       <div className="edit-container">
@@ -29,12 +33,12 @@ const Edit:FunctionComponent <PageProps> = (props) => {
             category: "" as string,
             price: 0 as number,
             image: "../images/" as string,
-          }} 
+          }}
           validate={(values) => {
             const errors = {
-              name:"" as string,
-              category:"" as string,
-              price:"" as string
+              name: "" as string,
+              category: "" as string,
+              price: "" as string,
             };
             if (!values.category && !values.name && !values.price) {
               errors.category = "Required ";
@@ -110,7 +114,7 @@ const Edit:FunctionComponent <PageProps> = (props) => {
           initialValues={{ category: "" }}
           validate={(values) => {
             const errors = {
-              category:"" as string
+              category: "" as string,
             };
             if (!values.category) {
               errors.category = "Required";

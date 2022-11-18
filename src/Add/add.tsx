@@ -1,13 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./add.css";
 import { FunctionComponent } from "react";
-import{ProductsRequest} from "../ApiRespones"
+import { ProductsRequest } from "../ApiRespones";
 
 interface PageProps {
-  Gener : string
+  Gener: string;
 }
-const Add:FunctionComponent <PageProps>= (props) => {
-  async function postList (array:  ProductsRequest) {
+const Add: FunctionComponent<PageProps> = (props) => {
+  async function postList(array: ProductsRequest) {
     await fetch(`http://localhost:5050/${props.Gener}/`, {
       method: "POST",
       headers: {
@@ -17,23 +17,23 @@ const Add:FunctionComponent <PageProps>= (props) => {
       body: JSON.stringify(array),
     });
     window.location.reload();
-  };
+  }
 
   if (props.Gener === "products") {
     return (
       <div>
         <Formik
-                    initialValues={{
-                      name: "" as string,
-                      category: "" as string,
-                      price: 0 as number,
-                      image: "../images/" as string,
-                    }} 
+          initialValues={{
+            name: "" as string,
+            category: "" as string,
+            price: 0 as number,
+            image: "../images/" as string,
+          }}
           validate={(values) => {
             const errors = {
-              name:"" as string,
-              category:"" as string,
-              price:"" as string
+              name: "" as string,
+              category: "" as string,
+              price: "" as string,
             };
             if (!values.category && !values.name && !values.price) {
               errors.category = "Required";
@@ -109,7 +109,7 @@ const Add:FunctionComponent <PageProps>= (props) => {
           initialValues={{ category: "" }}
           validate={(values) => {
             const errors = {
-              category:"" as string
+              category: "" as string,
             };
             if (!values.category) {
               errors.category = "Required";

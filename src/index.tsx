@@ -4,13 +4,11 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { StrictMode } from "react";
 import Products from "./Products/Products";
 import Categories from "./categories/categories";
-import Cart from "./Cart/cart"
+import Cart from "./Cart/cart";
 import { useState } from "react";
 /*import Cart from "./Cart/cart.jsx";*/
 import "./index.css";
-import{ProductsApi} from "./ApiRespones"
-
-
+import { ProductsApi } from "./ApiRespones";
 
 const Index = () => {
   const [defaultCategory, setCategory] = useState([
@@ -25,62 +23,61 @@ const Index = () => {
 
   const [cartKey, SetCartKey] = useState("cart1");
 
-  const [cartProducts, setCartProducts] = useState<{[cart: string]: ProductsApi[]}>({
-    cart1: [] ,
+  const [cartProducts, setCartProducts] = useState<{
+    [cart: string]: ProductsApi[];
+  }>({
+    cart1: [],
     cart2: [],
-    cart3:[]
-  }) 
+    cart3: [],
+  });
 
-  const[updateCart,setUpdateCart] =useState(0)
+  const [updateCart, setUpdateCart] = useState(0);
 
-  const handleChange = (category: string[] | string ) => {
-    setCategory(category );
+  const handleChange = (category: string[] | string) => {
+    setCategory(category);
   };
 
-  const onAdd= ( {product}:{
-    product:ProductsApi
-  }) => {
-    
-    const exist= (cartProducts[cartKey].find((x) => x.id === product.id)) as unknown as (ProductsApi | undefined);
-    const tempCart = cartProducts;   
+  const onAdd = ({ product }: { product: ProductsApi }) => {
+    const exist = cartProducts[cartKey].find(
+      (x) => x.id === product.id
+    ) as unknown as ProductsApi | undefined;
+    const tempCart = cartProducts;
 
     if (exist) {
       tempCart[cartKey] = cartProducts[cartKey].map((x) =>
-      x.id === product.id ? { ...exist, qty: exist.qty+1 } : x
-    );
-      
-      setCartProducts(tempCart);
-      setUpdateCart(Math.random())
-    } else  {
-      tempCart[cartKey] = [...cartProducts[cartKey], { ...product, qty: 1 }]; 
-      setCartProducts(tempCart);
-      setUpdateCart(Math.random())
+        x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+      );
 
+      setCartProducts(tempCart);
+      setUpdateCart(Math.random());
+    } else {
+      tempCart[cartKey] = [...cartProducts[cartKey], { ...product, qty: 1 }];
+      setCartProducts(tempCart);
+      setUpdateCart(Math.random());
     }
   };
 
-  const onRemove = ({product}:{
-    product:ProductsApi
-  }) => {
+  const onRemove = ({ product }: { product: ProductsApi }) => {
     const exist = cartProducts[cartKey].find((x) => x.id === product.id);
-    
-    const tempCart = cartProducts
- 
+
+    const tempCart = cartProducts;
+
     if (exist) {
-      if(exist.qty){ 
-            tempCart[cartKey] = cartProducts[cartKey].filter((x) => x.id !== product.id);
+      if (exist.qty) {
+        tempCart[cartKey] = cartProducts[cartKey].filter(
+          (x) => x.id !== product.id
+        );
         setCartProducts(tempCart);
-      }else {
+      } else {
         tempCart[cartKey] = cartProducts[cartKey].map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty-= 1 } : x
+          x.id === product.id ? { ...exist, qty: (exist.qty -= 1) } : x
         );
         setCartProducts(tempCart);
       }
- 
-    } 
+    }
   };
 
-  function openTab(index:number, newKey:string) {
+  function openTab(index: number, newKey: string) {
     SetCartKey(newKey);
     setCurrentTab(index);
   }
@@ -181,7 +178,6 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-
               </div>
             }
           />

@@ -1,19 +1,25 @@
-import { useEffect,FunctionComponent } from "react";
-import{ProductsApi} from "../ApiRespones"
+import { useEffect, FunctionComponent } from "react";
+import { ProductsApi } from "../ApiRespones";
 
 interface PageProps {
-  totalPosts:ProductsApi[],
-  itemsPerPage:number,
-  setCurrentPage:React.Dispatch<React.SetStateAction<number>>,
-  currentPage:number,
-  defaultCategory:string[] |string,
-  query:string
+  totalPosts: ProductsApi[];
+  itemsPerPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  defaultCategory: string[] | string;
+  query: string;
 }
 
-
-const Pagination:FunctionComponent <PageProps>= ({totalPosts,itemsPerPage,setCurrentPage,currentPage,query,defaultCategory}) => {
-  let length_after_filter:number = totalPosts.filter((p) =>
-  defaultCategory.includes(p.category)
+const Pagination: FunctionComponent<PageProps> = ({
+  totalPosts,
+  itemsPerPage,
+  setCurrentPage,
+  currentPage,
+  query,
+  defaultCategory,
+}) => {
+  let length_after_filter: number = totalPosts.filter((p) =>
+    defaultCategory.includes(p.category)
   ).length;
 
   if (query.length >= 1) {
@@ -31,7 +37,7 @@ const Pagination:FunctionComponent <PageProps>= ({totalPosts,itemsPerPage,setCur
     if (length_after_filter < totalPosts.length) {
       setCurrentPage(1);
     }
-  }, [setCurrentPage,length_after_filter,totalPosts]);
+  }, [setCurrentPage, length_after_filter, totalPosts]);
 
   return (
     <div className="Pagination_container">

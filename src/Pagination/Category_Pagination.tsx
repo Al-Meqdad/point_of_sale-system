@@ -1,17 +1,15 @@
-import { useEffect,FunctionComponent } from "react";
-import{categories} from "../ApiRespones"
+import { useEffect, FunctionComponent } from "react";
+import { categories } from "../ApiRespones";
 
 interface PageProps {
-  totalPosts:categories[],
-  itemsPerPage:number,
-  setCurrentPage:React.Dispatch<React.SetStateAction<number>>,
-  currentPage:number,
-  query:string
+  totalPosts: categories[];
+  itemsPerPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  query: string;
 }
 
-
-
-const Pagination:FunctionComponent <PageProps> = ({
+const Pagination: FunctionComponent<PageProps> = ({
   totalPosts,
   itemsPerPage,
   setCurrentPage,

@@ -1,4 +1,4 @@
-import { useEffect, useState,FunctionComponent } from "react";
+import { useEffect, useState, FunctionComponent } from "react";
 import "./c.css";
 import Modal from "react-bootstrap/Modal";
 import Edit from "../Edit/Edit";
@@ -7,15 +7,15 @@ import Button from "react-bootstrap/Button";
 import Delete from "../Delete/Delete";
 import Pagination from "../Pagination/Category_Pagination";
 import Add from "../Add/add";
-import{categories} from "../ApiRespones"
+import { categories } from "../ApiRespones";
 
 interface PageProps {
-  handleChange : (category: string[] | string) => void;
+  handleChange: (category: string[] | string) => void;
 }
 
-const Categories:FunctionComponent <PageProps> = (props) => {
+const Categories: FunctionComponent<PageProps> = (props) => {
   const [categories, setCategories] = useState([] as categories[]);
-  const [currentCategory, setCurrentCategory] = useState({} as categories );
+  const [currentCategory, setCurrentCategory] = useState({} as categories);
   const [toggleEdit, setEditModal] = useState(false);
   const [toggleDelete, setModal] = useState(false);
   const [toggleAdd, settoggleAdd] = useState(false);
@@ -45,12 +45,12 @@ const Categories:FunctionComponent <PageProps> = (props) => {
     setCategories(json);
   }
 
-  const array:string[] = [];
+  const array: string[] = [];
   for (const values of Object.values(categories)) {
     array.push(values.category);
   }
 
-  const expandModal = (project:categories) => {
+  const expandModal = (project: categories) => {
     setCurrentCategory(project);
     setEditModal(true);
   };
@@ -61,7 +61,7 @@ const Categories:FunctionComponent <PageProps> = (props) => {
     settoggleAdd(false);
   };
 
-  const modalInfo = (productId:number) => {
+  const modalInfo = (productId: number) => {
     setModal(true);
     setId(productId);
   };
@@ -107,10 +107,7 @@ const Categories:FunctionComponent <PageProps> = (props) => {
 
                 <label htmlFor={c.category}>{c.category}</label>
                 <div className="inside_buttons">
-                  <button
-                    onClick={() => expandModal(c)}
-                    className="edit_btn"
-                  >
+                  <button onClick={() => expandModal(c)} className="edit_btn">
                     <BsFillGearFill />{" "}
                   </button>
                   <button
