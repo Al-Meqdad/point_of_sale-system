@@ -6,7 +6,7 @@ interface PageProps {
   cartProducts: ProductsApi[];
   onAdd: ({ product }: { product: ProductsApi }) => void;
   onRemove: ({ product }: { product: ProductsApi }) => void;
-  onDelete:({ product }: { product: ProductsApi }) => void;
+  onDelete: ({ product }: { product: ProductsApi }) => void;
   Cartkey: string;
   updateCart: number;
 }

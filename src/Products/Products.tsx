@@ -7,17 +7,16 @@ import Delete from "../Delete/Delete";
 import Pagination from "../Pagination/Pagination";
 import Add from "../Add/add";
 import { ProductsApi } from "../ApiRespones";
-import {useSelector, useDispatch } from "react-redux"
-import changeEdit from "../actionCreators/changeEdit"
-import changeDelete from "../actionCreators/changeDelete"
-import changeAdd from "../actionCreators/changeAdd"
-
+import { useSelector, useDispatch } from "react-redux";
+import changeEdit from "../actionCreators/changeEdit";
+import changeDelete from "../actionCreators/changeDelete";
+import changeAdd from "../actionCreators/changeAdd";
 
 interface RootState {
-  edit: boolean,
-  del:boolean,
-  add:boolean,
-  category:string[] | string
+  edit: boolean;
+  del: boolean;
+  add: boolean;
+  category: string[] | string;
 }
 
 interface PageProps {
@@ -25,11 +24,11 @@ interface PageProps {
 }
 
 const Product: FunctionComponent<PageProps> = (props) => {
-  const dispatch=useDispatch()
-  const toggleEdit =useSelector((state:RootState) => state.edit)
-  const toggleAdd =useSelector((state:RootState) => state.add)
-  const toggleDelete =useSelector((state:RootState) => state.del)
-  const defaultCategory =useSelector((state:RootState) => state.category)
+  const dispatch = useDispatch();
+  const toggleEdit = useSelector((state: RootState) => state.edit);
+  const toggleAdd = useSelector((state: RootState) => state.add);
+  const toggleDelete = useSelector((state: RootState) => state.del);
+  const defaultCategory = useSelector((state: RootState) => state.category);
 
   const [products, setProducts] = useState([] as ProductsApi[]);
   const [currentProduct, setCurrentProduct] = useState({} as ProductsApi);
@@ -37,7 +36,6 @@ const Product: FunctionComponent<PageProps> = (props) => {
   const [id, setId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
 
   const lastPageIndex: number = currentPage * itemsPerPage;
   const firstPageIndex: number = lastPageIndex - itemsPerPage;

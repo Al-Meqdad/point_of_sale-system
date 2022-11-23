@@ -8,30 +8,27 @@ import Delete from "../Delete/Delete";
 import Pagination from "../Pagination/Category_Pagination";
 import Add from "../Add/add";
 import { categories } from "../ApiRespones";
-import {useSelector, useDispatch } from "react-redux"
-import changeEdit from "../actionCreators/changeCaEdit"
-import changeDelete from "../actionCreators/changeCaDelete"
-import changeAdd from "../actionCreators/changeCaAdd"
-import changeCategory from "../actionCreators/changeCateogry"
+import { useSelector, useDispatch } from "react-redux";
+import changeEdit from "../actionCreators/changeCaEdit";
+import changeDelete from "../actionCreators/changeCaDelete";
+import changeAdd from "../actionCreators/changeCaAdd";
+import changeCategory from "../actionCreators/changeCateogry";
 
 interface RootState {
-  caEdit: boolean,
-  caDelete:boolean,
-  caAdd:boolean,
-  category:string[] | string
+  caEdit: boolean;
+  caDelete: boolean;
+  caAdd: boolean;
+  category: string[] | string;
 }
 
-
 const Categories: FunctionComponent = () => {
-  const dispatch=useDispatch()
-  const toggleEdit =useSelector((state:RootState) => state.caEdit)
-  const toggleAdd =useSelector((state:RootState) => state.caAdd)
-  const toggleDelete =useSelector((state:RootState) => state.caDelete)
-
+  const dispatch = useDispatch();
+  const toggleEdit = useSelector((state: RootState) => state.caEdit);
+  const toggleAdd = useSelector((state: RootState) => state.caAdd);
+  const toggleDelete = useSelector((state: RootState) => state.caDelete);
 
   const [categories, setCategories] = useState([] as categories[]);
   const [currentCategory, setCurrentCategory] = useState({} as categories);
-
 
   const [query, setQuery] = useState("");
   const [id, setId] = useState(0 as number);
@@ -64,14 +61,14 @@ const Categories: FunctionComponent = () => {
   }
 
   const expandModal = (project: categories) => {
-    setCurrentCategory(project)
-    dispatch(changeEdit(true))
+    setCurrentCategory(project);
+    dispatch(changeEdit(true));
   };
 
   const closeModal = () => {
-    dispatch(changeDelete(false))
-    dispatch(changeEdit(false))
-    dispatch(changeAdd(false))
+    dispatch(changeDelete(false));
+    dispatch(changeEdit(false));
+    dispatch(changeAdd(false));
   };
 
   const modalInfo = (productId: number) => {
@@ -92,7 +89,10 @@ const Categories: FunctionComponent = () => {
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-          <button onClick={() => dispatch(changeAdd(true))} className="ca_radius">
+          <button
+            onClick={() => dispatch(changeAdd(true))}
+            className="ca_radius"
+          >
             Add a Category
           </button>
         </div>

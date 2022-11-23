@@ -1,4 +1,3 @@
-export default function changeCaAdd(toggle:boolean){
-    return {type:"TOGGLE_CAADD",payload: toggle}
-
+export default function changeCaAdd(toggle: boolean) {
+  return { type: "TOGGLE_CAADD", payload: toggle };
 }
