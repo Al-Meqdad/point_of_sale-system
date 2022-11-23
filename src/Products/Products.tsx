@@ -7,27 +7,42 @@ import Delete from "../Delete/Delete";
 import Pagination from "../Pagination/Pagination";
 import Add from "../Add/add";
 import { ProductsApi } from "../ApiRespones";
+import {useSelector, useDispatch } from "react-redux"
+import changeEdit from "../actionCreators/changeEdit"
+import changeDelete from "../actionCreators/changeDelete"
+import changeAdd from "../actionCreators/changeAdd"
+
+
+interface RootState {
+  edit: boolean,
+  del:boolean,
+  add:boolean,
+  category:string[] | string
+}
 
 interface PageProps {
-  defaultCategory: string[] | string;
   onAdd: ({ product }: { product: ProductsApi }) => void;
 }
 
 const Product: FunctionComponent<PageProps> = (props) => {
+  const dispatch=useDispatch()
+  const toggleEdit =useSelector((state:RootState) => state.edit)
+  const toggleAdd =useSelector((state:RootState) => state.add)
+  const toggleDelete =useSelector((state:RootState) => state.del)
+  const defaultCategory =useSelector((state:RootState) => state.category)
+
   const [products, setProducts] = useState([] as ProductsApi[]);
   const [currentProduct, setCurrentProduct] = useState({} as ProductsApi);
-  const [toggleDelete, setModal] = useState(false);
-  const [toggleEdit, setEditModal] = useState(false);
-  const [toggleAdd, settoggleAdd] = useState(false);
   const [query, setQuery] = useState("");
-  const [id, setId] = useState(0 as number);
+  const [id, setId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+
 
   const lastPageIndex: number = currentPage * itemsPerPage;
   const firstPageIndex: number = lastPageIndex - itemsPerPage;
   const curentDisplay: ProductsApi[] = products
-    .filter((p) => props.defaultCategory.includes(p.category))
+    .filter((p) => defaultCategory.includes(p.category))
     .filter((product) =>
       !query
         ? product
@@ -46,18 +61,18 @@ const Product: FunctionComponent<PageProps> = (props) => {
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   const modalInfo = (productId: number) => {
-    setModal(true);
+    dispatch(changeDelete(true));
     setId(productId);
   };
 
   const expandModal = (project: ProductsApi) => {
     setCurrentProduct(project);
-    setEditModal(true);
+    dispatch(changeEdit(true));
   };
   const closeModal = () => {
-    setModal(false);
-    setEditModal(false);
-    settoggleAdd(false);
+    dispatch(changeDelete(false));
+    dispatch(changeEdit(false));
+    dispatch(changeAdd(false));
   };
 
   const filteredProducts = curentDisplay;
@@ -77,7 +92,7 @@ const Product: FunctionComponent<PageProps> = (props) => {
         </div>
 
         <button
-          onClick={() => settoggleAdd(true)}
+          onClick={() => dispatch(changeAdd(true))}
           className="ca_radius search_style_child"
         >
           Add a Product
@@ -85,7 +100,7 @@ const Product: FunctionComponent<PageProps> = (props) => {
       </div>
       <div className="product_container">
         {filteredProducts
-          .filter((p) => props.defaultCategory.includes(p.category))
+          .filter((p) => defaultCategory.includes(p.category))
           .filter((product) =>
             !query
               ? product
@@ -112,7 +127,7 @@ const Product: FunctionComponent<PageProps> = (props) => {
         itemsPerPage={itemsPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
-        defaultCategory={props.defaultCategory}
+        defaultCategory={defaultCategory}
         query={query}
       />
       <Modal show={toggleDelete} onHide={closeModal}>

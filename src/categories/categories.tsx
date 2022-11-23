@@ -8,17 +8,30 @@ import Delete from "../Delete/Delete";
 import Pagination from "../Pagination/Category_Pagination";
 import Add from "../Add/add";
 import { categories } from "../ApiRespones";
+import {useSelector, useDispatch } from "react-redux"
+import changeEdit from "../actionCreators/changeCaEdit"
+import changeDelete from "../actionCreators/changeCaDelete"
+import changeAdd from "../actionCreators/changeCaAdd"
+import changeCategory from "../actionCreators/changeCateogry"
 
-interface PageProps {
-  handleChange: (category: string[] | string) => void;
+interface RootState {
+  caEdit: boolean,
+  caDelete:boolean,
+  caAdd:boolean,
+  category:string[] | string
 }
 
-const Categories: FunctionComponent<PageProps> = (props) => {
+
+const Categories: FunctionComponent = () => {
+  const dispatch=useDispatch()
+  const toggleEdit =useSelector((state:RootState) => state.caEdit)
+  const toggleAdd =useSelector((state:RootState) => state.caAdd)
+  const toggleDelete =useSelector((state:RootState) => state.caDelete)
+
+
   const [categories, setCategories] = useState([] as categories[]);
   const [currentCategory, setCurrentCategory] = useState({} as categories);
-  const [toggleEdit, setEditModal] = useState(false);
-  const [toggleDelete, setModal] = useState(false);
-  const [toggleAdd, settoggleAdd] = useState(false);
+
 
   const [query, setQuery] = useState("");
   const [id, setId] = useState(0 as number);
@@ -51,18 +64,18 @@ const Categories: FunctionComponent<PageProps> = (props) => {
   }
 
   const expandModal = (project: categories) => {
-    setCurrentCategory(project);
-    setEditModal(true);
+    setCurrentCategory(project)
+    dispatch(changeEdit(true))
   };
 
   const closeModal = () => {
-    setEditModal(false);
-    setModal(false);
-    settoggleAdd(false);
+    dispatch(changeDelete(false))
+    dispatch(changeEdit(false))
+    dispatch(changeAdd(false))
   };
 
   const modalInfo = (productId: number) => {
-    setModal(true);
+    dispatch(changeDelete(true));
     setId(productId);
   };
 
@@ -79,7 +92,7 @@ const Categories: FunctionComponent<PageProps> = (props) => {
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-          <button onClick={() => settoggleAdd(true)} className="ca_radius">
+          <button onClick={() => dispatch(changeAdd(true))} className="ca_radius">
             Add a Category
           </button>
         </div>
@@ -91,7 +104,7 @@ const Categories: FunctionComponent<PageProps> = (props) => {
                 id="category1"
                 name="category"
                 defaultChecked
-                onChange={() => props.handleChange(array)}
+                onChange={() => dispatch(changeCategory(array))}
               />
               <label htmlFor="category1">All</label>
             </div>
@@ -102,7 +115,7 @@ const Categories: FunctionComponent<PageProps> = (props) => {
                   type="radio"
                   id={c.category}
                   name="category"
-                  onChange={() => props.handleChange(c.category)}
+                  onChange={() => dispatch(changeCategory(c.category))}
                 />
 
                 <label htmlFor={c.category}>{c.category}</label>

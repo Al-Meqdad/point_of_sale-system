@@ -7,6 +7,7 @@ interface PageProps {
   Gener: string;
 }
 const Add: FunctionComponent<PageProps> = (props) => {
+
   async function postList(array: ProductsRequest) {
     await fetch(`http://localhost:5050/${props.Gener}/`, {
       method: "POST",

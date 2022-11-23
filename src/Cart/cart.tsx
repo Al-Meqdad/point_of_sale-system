@@ -6,6 +6,7 @@ interface PageProps {
   cartProducts: ProductsApi[];
   onAdd: ({ product }: { product: ProductsApi }) => void;
   onRemove: ({ product }: { product: ProductsApi }) => void;
+  onDelete:({ product }: { product: ProductsApi }) => void;
   Cartkey: string;
   updateCart: number;
 }
@@ -14,6 +15,7 @@ const Cart: FunctionComponent<PageProps> = ({
   cartProducts,
   onAdd,
   onRemove,
+  onDelete,
   Cartkey,
 }) => {
   const totalPrice: number = cartProducts.reduce(
@@ -28,6 +30,11 @@ const Cart: FunctionComponent<PageProps> = ({
     <div key={Cartkey} className="cart_container">
       <div>{cartProducts.length === 0 && <div> Cart is empty </div>}</div>
       <div className="List">
+        <div className="Items options">
+          <h4>Name</h4>
+          <h4>Options</h4>
+          <h4>Price</h4>
+        </div>
         {cartProducts.map((item) => (
           <div key={item.id} className="Items">
             <h3>{item.name}</h3>
@@ -41,6 +48,12 @@ const Cart: FunctionComponent<PageProps> = ({
                 className="remove"
               >
                 -
+              </button>
+              <button
+                onClick={() => onDelete({ product: item })}
+                className="remove"
+              >
+                Delete
               </button>
             </div>
             <div className="price"> ${item.price} </div>
