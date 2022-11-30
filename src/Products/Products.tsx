@@ -45,7 +45,8 @@ const Product: FunctionComponent<PageProps> = (props) => {
       !query
         ? product
         : product.name.toLowerCase().includes(query.toLowerCase())
-    ).slice(firstPageIndex, lastPageIndex);
+    )
+    .slice(firstPageIndex, lastPageIndex);
 
   useEffect(() => {
     async function requestProducts() {

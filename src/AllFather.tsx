@@ -9,7 +9,6 @@ import store from "./Store";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import changeCartProducts from "./actionCreators/changeCartProducts";
 
-
 interface RootState {
   cartContains: { [cart: string]: ProductsApi[] };
 }
@@ -22,7 +21,6 @@ const AllFather: FunctionComponent = () => {
   const [updateCart, setUpdateCart] = useState(0);
 
   const onAdd = ({ product }: { product: ProductsApi }) => {
-
     const exist = cartProducts[cartKey].find((x) => x.id === product.id);
     const tempCart = cartProducts;
     if (exist) {
@@ -36,7 +34,6 @@ const AllFather: FunctionComponent = () => {
       dispatch(changeCartProducts(tempCart));
       setUpdateCart(Math.random());
     }
-    
   };
 
   const onRemove = ({ product }: { product: ProductsApi }) => {
@@ -83,11 +80,9 @@ const AllFather: FunctionComponent = () => {
             <Categories /> <Products onAdd={onAdd} />
           </div>
           <div className="right_side">
-
             <h1>Available Carts</h1>
 
             <div className="carts">
-              
               <div className="tab">
                 <button
                   className={currentTab === 1 ? "tabs active-tabs" : "tabs"}

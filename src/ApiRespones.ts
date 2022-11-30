@@ -5,7 +5,7 @@ export interface ProductsApi {
   image: string;
   id: number;
   qty: number;
-  Barcode:number;
+  Barcode: number;
 }
 
 export interface categories {
