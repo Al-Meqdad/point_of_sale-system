@@ -45,9 +45,7 @@ const Product: FunctionComponent<PageProps> = (props) => {
       !query
         ? product
         : product.name.toLowerCase().includes(query.toLowerCase())
-    )
-
-    .slice(firstPageIndex, lastPageIndex);
+    ).slice(firstPageIndex, lastPageIndex);
 
   useEffect(() => {
     async function requestProducts() {
@@ -56,7 +54,7 @@ const Product: FunctionComponent<PageProps> = (props) => {
       setProducts(json);
     }
     void requestProducts();
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const modalInfo = (productId: number) => {
     dispatch(changeDelete(true));

@@ -1,6 +1,7 @@
 import { useState, FunctionComponent } from "react";
 import "./Cart.css";
 import { ProductsApi } from "../ApiRespones";
+import Scanner from '../Scanner/scanner'
 
 interface PageProps {
   cartProducts: ProductsApi[];
@@ -29,6 +30,7 @@ const Cart: FunctionComponent<PageProps> = ({
   return (
     <div key={Cartkey} className="cart_container">
       <div>{cartProducts.length === 0 && <div> Cart is empty </div>}</div>
+      <Scanner onAdd={onAdd}/>
       <div className="List">
         <div className="Items options">
           <h4>Name</h4>

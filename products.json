@@ -5,6 +5,7 @@
       "category": "fruits",
       "price": "200",
       "image": "../images/Water_Melon.png",
+      "Barcode":2,
       "id": 1
     },
     {
@@ -12,6 +13,7 @@
       "category": "cans",
       "price": 1,
       "image": "../images/Tuna.png",
+      "Barcode":4,
       "id": 2
     },
     {
@@ -19,6 +21,7 @@
       "category": "cartons",
       "price": 5,
       "image": "../images/Milk.png",
+      "Barcode":6,
       "id": 3
     },
     {
@@ -26,6 +29,7 @@
       "category": "cartons",
       "price": 1,
       "image": "../images/Apple_juice.png",
+      "Barcode":8,
       "id": 4
     },
     {
@@ -33,6 +37,7 @@
       "category": "chips",
       "price": 1,
       "image": "../images/Doretos.png",
+      "Barcode":10,
       "id": 5
     },
     {
@@ -40,6 +45,7 @@
       "category": "chips",
       "price": 1,
       "image": "../images/Lays.png",
+      "Barcode":12,
       "id": 6
     },
     {
@@ -47,6 +53,7 @@
       "category": "fruits",
       "price": "150",
       "image": "../images/Mango.png",
+      "Barcode":14,
       "id": 7
     },
     {
@@ -54,6 +61,7 @@
       "category": "cans",
       "price": "10",
       "image": "../images/Beans.png",
+      "Barcode":16,
       "id": 8
     },
     {
@@ -61,6 +69,7 @@
       "category": "vegetables",
       "price": "5",
       "image": "../images/Tomato.png",
+      "Barcode":18,
       "id": 9
     },
     {
@@ -68,6 +77,7 @@
       "category": "vegetables",
       "price": "15",
       "image": "../images/CuCumber.png",
+      "Barcode":20,
       "id": 10
     },
     {
@@ -75,6 +85,7 @@
       "category": "snacks",
       "price": "2",
       "image": "../images/Snickers.png",
+      "Barcode":22,
       "id": 11
     },
     {
@@ -82,6 +93,7 @@
       "category": "snacks",
       "price": "3",
       "image": "../images/M&Ms.png",
+      "Barcode":24,
       "id": 12
     },
     {
@@ -89,6 +101,7 @@
       "category": "frozen",
       "price": "50",
       "image": "../images/Pizza.jpg",
+      "Barcode":26,
       "id": 13
     }
   ],
