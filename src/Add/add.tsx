@@ -39,8 +39,9 @@ const Add: FunctionComponent<PageProps> = (props) => {
               errors.category = "Required";
               errors.name = "Required";
               errors.price = "Required";
+              return errors;
             }
-            return errors;
+
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
@@ -113,8 +114,8 @@ const Add: FunctionComponent<PageProps> = (props) => {
             };
             if (!values.category) {
               errors.category = "Required";
+              return errors;
             }
-            return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
