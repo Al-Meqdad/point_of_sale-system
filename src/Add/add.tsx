@@ -41,7 +41,6 @@ const Add: FunctionComponent<PageProps> = (props) => {
               errors.price = "Required";
               return errors;
             }
-
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {

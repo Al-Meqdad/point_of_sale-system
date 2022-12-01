@@ -120,7 +120,6 @@ const Edit: FunctionComponent<PageProps> = (props) => {
               errors.category = "Required";
               return errors;
             }
-
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
