@@ -3,7 +3,7 @@ import { StrictMode, FunctionComponent, useState } from "react";
 import Products from "./Products/Products";
 import Categories from "./categories/categories";
 import Cart from "./Cart/cart";
-import "./Index.css";
+import "./index.css";
 import { ProductsApi } from "./ApiRespones";
 import store from "./Store";
 import { Provider, useSelector, useDispatch } from "react-redux";

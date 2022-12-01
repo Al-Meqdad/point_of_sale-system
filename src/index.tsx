@@ -2,7 +2,7 @@ import { render } from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { StrictMode } from "react";
-import "./Index.css";
+import "./index.css";
 import store from "./Store";
 import { Provider } from "react-redux";
 import AllFather from "./AllFather";
